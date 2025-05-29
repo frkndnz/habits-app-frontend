@@ -99,15 +99,17 @@ const authSlice = createSlice({
             })
             .addCase(registerUser.pending, (state) => {
                 state.isLoading = true;
-                state.isError = false;
+                state.errorMessages = null;
+                state.message = null;
             })
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                
+                state.message = action.payload.message;
+                state.errorMessages = null;
             })
-            .addCase(registerUser.rejected, (state) => {
+            .addCase(registerUser.rejected, (state,action) => {
                 state.isLoading = false;
-                state.isError = true;
+                state.errorMessages = action.payload.errorMessages || ["Bir hata oluştu"];
             });
     },
 });

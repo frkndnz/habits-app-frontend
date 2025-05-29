@@ -69,6 +69,14 @@ const LoginPage = () => {
                     disabled={isLoading}>
                     {isLoading ? "Giriş Yapılıyor..." : "Giriş Yap"}    
                 </button>
+                <button>
+                    <p className="text-center mt-4">
+                        Hesabın yok mu?{" "}
+                        <a href="/auth/register" className="text-blue-500 hover:underline">
+                            Kayıt Ol
+                        </a>
+                    </p>
+                </button>
             </form>
         </div>
 

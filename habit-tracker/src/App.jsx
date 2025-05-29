@@ -6,6 +6,7 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import './App.css'
 import { useEffect } from 'react';
 
@@ -27,7 +28,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
         </Route>
         <Route path='/auth/login' element={<LoginPage/>}></Route>
-        
+        <Route path='/auth/register' element={<RegisterPage/>}></Route> 
       </Routes>
     </Router>
   )
