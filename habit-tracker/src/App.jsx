@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ConfirmEmailPage from './pages/ConfirmEmailPage';
 import './App.css'
 import { useEffect } from 'react';
 
@@ -29,6 +30,8 @@ function App() {
         </Route>
         <Route path='/auth/login' element={<LoginPage/>}></Route>
         <Route path='/auth/register' element={<RegisterPage/>}></Route> 
+        <Route path='/auth/confirm-email' element={<ConfirmEmailPage/>}></Route>
+        
       </Routes>
     </Router>
   )
