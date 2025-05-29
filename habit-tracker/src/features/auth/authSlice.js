@@ -1,26 +1,32 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import { act } from 'react';
+import API from '../../api/axios';
+import { handleJwt } from '../../utils/handleJwt';
 
-const API_URL = 'https://api.example.com/auth';
 
 export const loginUser = createAsyncThunk(
     'auth/loginUser',
     async (userData,thunkAPI) => {
         try{
 
-            const response = await axios.post(API_URL+'login', userData);
+            const response = await API.post('/auth/login', userData);
             const data= response.data;
             if(data.isSuccess){
                 return data;
             }
             else{
-                return rejectWithValue(data);
+                
+                return thunkAPI.rejectWithValue(data);
             }
         }
         catch (error) {
+            const backendResult= error.response?.data;
+            if(backendResult){
+                return thunkAPI.rejectWithValue(backendResult);
+            }  
             return rejectWithValue({
                 isSuccess:false,
+                errorMessages:["Bir hata oluştu"],
                 message:"Sunucu hatası"
             })
         }
@@ -31,7 +37,7 @@ export const registerUser = createAsyncThunk(
     'auth/registerUser',
     async (userData, thunkAPI) => {
         try {
-            const response = await axios.post(API_URL+'register', userData);
+            const response = await API.post('auth/register', userData);
             return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -46,6 +52,7 @@ const initialState = {
     user:null,
     token: token ? token : null,
     isLoading: false,
+    isAuthenticated: false, 
     errorMessages: null,
     message:null
 }
@@ -58,9 +65,15 @@ const authSlice = createSlice({
             state.user = null;
             state.message = null;
             state.errorMessages = null;
+            state.isAuthenticated= false; 
             state.token = null;
             localStorage.removeItem('token');
         },
+        setUserFromToken: (state,action) => {
+            state.user=handleJwt(action.payload); 
+            state.isAuthenticated = true;
+            console.log("setUserFromToken",state.user); 
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -68,17 +81,20 @@ const authSlice = createSlice({
                 state.isLoading = true;
                 state.message = null;
                 state.errorMessages = null;
+                state.isAuthenticated=false;
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.token = action.payload.value.accessToken;
                 state.message = action.payload.message;
                 state.errorMessages = null;
+                state.isAuthenticated = true; 
                 localStorage.setItem('token', action.payload.value.accessToken);
+                state.user=handleJwt(action.payload.value.accessToken);
             })
             .addCase(loginUser.rejected, (state,action) => {
                 state.isLoading = false;
-                state.message = action.payload.message || "Bir hata oluştu";
+              //  state.message = action.payload.message || "Bir hata oluştu";
                 state.errorMessages = action.payload.errorMessages || ["Bir hata oluştu"];
             })
             .addCase(registerUser.pending, (state) => {
@@ -87,9 +103,7 @@ const authSlice = createSlice({
             })
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.user = action.payload.user;
-                state.token = action.payload.token;
-                localStorage.setItem('token', action.payload.token);
+                
             })
             .addCase(registerUser.rejected, (state) => {
                 state.isLoading = false;
@@ -98,5 +112,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout,setUserFromToken } = authSlice.actions;
 export default authSlice.reducer;
