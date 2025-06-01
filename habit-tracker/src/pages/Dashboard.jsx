@@ -1,10 +1,13 @@
 import React from "react";
-
+import Header from "../components/dashboard/Header";
+import HabitList from "../components/dashboard/HabitList";
 const Dashboard = () => {
     return(
-        <h1>
-            Welcome to your Dashboard!
-        </h1>
+        <div className="bg-gray-300 mb-4  rounded-lg shadow-md">
+        <Header/>
+        <HabitList/>
+        </div>
+        
     )
 }
 

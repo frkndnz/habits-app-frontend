@@ -4,7 +4,7 @@ import authReducer from '../features/auth/authSlice';
 
 const store = configureStore({
   reducer: {
-    habits:habitsReducer,
+    habit:habitsReducer,
     auth:authReducer,
     },
 });

@@ -1,41 +1,24 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import axios from 'axios';
+import {createSlice} from '@reduxjs/toolkit';
+import { handleFetchHabits } from './fetchHabit';
+import { handleAddHabit } from './addHabit';
+import { handleUpdateHabit } from './updateHabit';
 
-export const fetchHabits = createAsyncThunk(
-    'habits/fetchHabits', 
-    async () => {
-        const response = await axios.get('https://api.example.com/habits');
-        return response.data;
-    }
-); 
-
-const habitsSlice = createSlice({
-    name: 'habits',
+const habitSlice = createSlice({
+    name: 'habit',
     initialState: {
         habits: [],
-        status: 'idle', // idle | loading | succeeded | failed
-        error: null
+        isLoading: false,
+        isSuccess: false,
+        errorMessages: null,
+        message: null,
     },
     reducers:{},
     extraReducers: (builder) => {
-        builder
-        .addCase(fetchHabits.pending, (state) => {
-            state.status = 'loading';
-            state.loading = true;
-            state.error = null;
-        })
-        .addCase(fetchHabits.fulfilled, (state, action) => {
-            state.status = 'succeeded';
-            state.habits = action.payload;
-            state.loading = false;
-        })
-        .addCase(fetchHabits.rejected, (state, action) => {
-            state.status = 'failed';
-            state.error = action.error.message;
-            state.loading = false;
-        })
+        handleFetchHabits(builder);
+        handleAddHabit(builder);
+        handleUpdateHabit(builder);
     },
 });
 
 
-export default habitsSlice.reducer;
+export default habitSlice.reducer;
