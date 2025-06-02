@@ -1,14 +1,19 @@
 import API from '../../api/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { habitsAdapter } from './habitSlice';
 
 
-export const updateHabit = createAsyncThunk(
-    'habits/updateHabit', 
-    async (habitData) => {
+import { fetchHabits } from '../habits/fetchHabit';
+
+
+export const addHabitLog = createAsyncThunk(
+    'habitLogs/add', 
+    async (habitData,{dispatch}) => {
         try {
-            const response = await API.put(`habits/${habitData.id}`, habitData);
-            
+            const response = await API.post('habitLogs', habitData);
+            if(response.data.isSuccess) {
+                dispatch(fetchHabits());  // Dispatch fetchHabits to refresh the habit list
+                 // Dispatch fetchHabits to refresh the habit list
+            }
             return response.data;
             
         } catch (error) {
@@ -25,22 +30,21 @@ export const updateHabit = createAsyncThunk(
     }
 ); 
 
-export const handleUpdateHabit = (builder) => {
+export const handleAddHabitLog = (builder) => {
     builder
-        .addCase(updateHabit.pending, (state) => {
+        .addCase(addHabitLog.pending, (state) => {
             state.isSuccess = false;
             state.isLoading = true;
             state.errorMessages = null;
             state.message = null;
         })
-        .addCase(updateHabit.fulfilled, (state, action) => {
+        .addCase(addHabitLog.fulfilled, (state, action) => {
             state.isSuccess = true;
             state.isLoading = false;
             state.errorMessages = null;
-            state.message = action.payload?.message || "Alışkanlık başarıyla yüklendi";
-            habitsAdapter.upsertOne(state, action.payload.value);
+            state.message = action.payload?.message || "Alışkanlıklar başarıyla yüklendi";
         })
-        .addCase(updateHabit.rejected, (state, action) => {
+        .addCase(addHabitLog.rejected, (state, action) => {
             state.isSuccess = false;
             state.isLoading = false;
             state.errorMessages = action.payload?.errorMessages || ["Bir hata oluştu"];

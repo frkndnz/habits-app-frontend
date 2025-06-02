@@ -1,5 +1,6 @@
 import API from '../../api/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { habitsAdapter } from './habitSlice';
 
 export const fetchHabits = createAsyncThunk(
     'habits/fetchHabits', 
@@ -27,21 +28,19 @@ export const handleFetchHabits = (builder) => {
         .addCase(fetchHabits.pending, (state) => {
             state.isSuccess = false;
             state.isLoading = true;
-            state.habits = [];
             state.errorMessages = null;
             state.message = null;
         })
         .addCase(fetchHabits.fulfilled, (state, action) => {
             state.isSuccess = true;
             state.isLoading = false;
-            state.habits = action.payload.value;
+            habitsAdapter.setAll(state, action.payload.value);
             state.errorMessages = null;
             state.message = action.payload?.message || "Alışkanlıklar başarıyla yüklendi";
         })
         .addCase(fetchHabits.rejected, (state, action) => {
             state.isSuccess = false;
             state.isLoading = false;
-            state.habits = [];
             state.errorMessages = action.payload?.errorMessages || ["Bir hata oluştu"];
         });
 };

@@ -1,7 +1,7 @@
 import API from '../../api/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { habitsAdapter } from './habitSlice';
 
-import { fetchHabits } from './fetchHabit';
 
 
 export const deleteHabit = createAsyncThunk(
@@ -9,10 +9,7 @@ export const deleteHabit = createAsyncThunk(
     async (habitId,{dispatch}) => {
         try {
             const response = await API.delete(`habits/${habitId}`);
-            if(response.data.isSuccess) {
-                dispatch(fetchHabits());  // Dispatch fetchHabits to refresh the habit list
-                 // Dispatch fetchHabits to refresh the habit list
-            }
+            
             return response.data;
             
         } catch (error) {
@@ -42,6 +39,9 @@ export const handleDeleteHabit = (builder) => {
             state.isLoading = false;
             state.errorMessages = null;
             state.message = action.payload?.message || "Alışkanlık başarıyla silindi!";
+            console.log("Silinen alışkanlık ID:", action.payload.value);
+            habitsAdapter.removeOne(state, action.payload.value);
+
         })
         .addCase(deleteHabit.rejected, (state, action) => {
             state.isSuccess = false;

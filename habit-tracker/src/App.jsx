@@ -2,12 +2,14 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { setUserFromToken } from './features/auth/authSlice';
+import { logout } from './features/auth/authSlice';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ConfirmEmailPage from './pages/ConfirmEmailPage';
+import { isTokenExpired } from './utils/handleJwt';
 import './App.css'
 import { useEffect } from 'react';
 
@@ -16,9 +18,17 @@ function App() {
   const dispatch = useDispatch();
   useEffect(()=>{
     const token = localStorage.getItem('token');
-    if (token) {
+    if (token && !isTokenExpired(token)) {
       dispatch(setUserFromToken(token));
     }
+    else if (token && isTokenExpired(token)) {
+      localStorage.removeItem('token');
+      dispatch(logout());
+    }
+    else {
+      dispatch(logout());
+    }
+    
   },[]);
 
   return (
