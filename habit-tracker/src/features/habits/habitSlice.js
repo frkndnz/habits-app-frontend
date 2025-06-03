@@ -1,4 +1,4 @@
-import {createSlice,createEntityAdapter} from '@reduxjs/toolkit';
+import {createSlice,createSelector,createEntityAdapter} from '@reduxjs/toolkit';
 import { handleFetchHabits } from './fetchHabit';
 import { handleAddHabit } from './addHabit';
 import { handleUpdateHabit } from './updateHabit';
@@ -18,9 +18,13 @@ export const {
   selectById: selectHabitById,
   selectIds: selectHabitIds,
   selectEntities: selectHabitEntities,
+  
 } = habitsAdapter.getSelectors((state) => state.habit);
 
-
+export const selectHabitWithId = createSelector(
+  [selectHabitById, (state, id) => id],
+  (habit, id) => habit ? { ...habit, id } : null
+);
 
 
 const habitSlice = createSlice({

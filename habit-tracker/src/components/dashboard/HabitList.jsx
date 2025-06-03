@@ -5,13 +5,21 @@ import { updateHabit } from "../../features/habits/updateHabit";
 import { deleteHabit } from "../../features/habits/deleteHabit";
 import { addHabitLog } from "../../features/habitLogs/addHabitLog";
 import HabitCard from "./HabitCard";
-import EditHabitModal from "./EditHabitModal";
-import { selectAllHabits,selectHabitIds } from "../../features/habits/habitSlice";
+import NewHabitModal from "./NewHabitModal";
+import { selectAllHabits, selectHabitIds } from "../../features/habits/habitSlice";
 
 const HabitList = () => {
 
     const dispatch = useDispatch();
 
+    const habitIds = useSelector(selectHabitIds);
+
+    useEffect(() => {
+        dispatch(fetchHabits());
+    }, []);
+
+
+    
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedHabit, setSelectedHabit] = useState(null);
 
@@ -21,10 +29,11 @@ const HabitList = () => {
     };
 
     const handleEditSave = (updatedHabit) => {
+        console.log("handleEditSave", updatedHabit);
         dispatch(updateHabit(updatedHabit));
         setIsEditModalOpen(false);
     }
-    const handleDeleteClick =useCallback( (habitId) => {
+    const handleDeleteClick = useCallback((habitId) => {
         if (window.confirm("Bu alışkanlığı silmek istediğinize emin misiniz?")) {
             dispatch(deleteHabit(habitId));
             setIsEditModalOpen(false);
@@ -32,34 +41,30 @@ const HabitList = () => {
         }
     }, [dispatch]);
 
-    const handleMarkComplete =  (habitId) => {
+    const handleMarkComplete = (habitId) => {
         dispatch(addHabitLog({ habitId }));
     };
 
-    //const {isLoading, isSuccess, errorMessages } = useSelector((state) => state.habit);
-    
-    const habitIds=useSelector(selectHabitIds);
+    const handleCloseClick = () => {
+        setIsEditModalOpen(false);
+        setSelectedHabit(null);
+    }
 
-    useEffect(() => {
-        dispatch(fetchHabits());
-    }, []);
-
-    
 
     return (
         <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 ">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 ">
 
-                { habitIds.map((id) => {
+                {habitIds.map((id) => {
                     return (
                         <HabitCard key={id} habitId={id} onEdit={handleEditClick} onDelete={handleDeleteClick} onMarkComplete={handleMarkComplete} />
                     );
                 })}
             </div>
             {selectedHabit && (
-                <EditHabitModal
+                <NewHabitModal
                     open={isEditModalOpen}
-                    onClose={() => setIsEditModalOpen(false)}
+                    onClose={handleCloseClick}
                     habit={selectedHabit}
                     onSave={handleEditSave}
                 />

@@ -1,25 +1,47 @@
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import UserMenu from "./UserMenu";
-import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
-    
-    const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    return (
-        <>
-            <div>
-                <Link to="/" className="mr-4">Home</Link>
-                <Link to="/dashboard">Dashboard</Link>
-            </div>
-            <div className="absolute left-1/2 transform -translate-x-1/2">
-                <p className="text-xl font-bold">Habits App</p>
-            </div>
-            <div >
-                <UserMenu /> 
-            </div>
-        </>
-    );                                                                                                                                                                                                           
+  return (
+    <div className="w-full">
+      <div className="flex justify-between items-center relative">
+        {/* Mobil Hamburger */}
+        <div className="sm:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Sol Menü */}
+        <div className="hidden sm:flex gap-6 items-center">
+          <Link to="/" className="hover:underline font-medium">Home</Link>
+          <Link to="/dashboard" className="hover:underline font-medium">Dashboard</Link>
+        </div>
+
+        {/* Orta Başlık */}
+        <div className="absolute left-1/2 transform -translate-x-1/2">
+          <p className="text-lg sm:text-xl font-bold text-white">Habits App</p>
+        </div>
+
+        {/* Sağ Menü */}
+        <div className="flex items-center">
+          <UserMenu />
+        </div>
+      </div>
+
+      {/* Mobil Menü Açıldığında */}
+      {menuOpen && (
+        <div className="flex flex-col gap-2 mt-3 sm:hidden">
+          <Link to="/" className="hover:underline font-medium">Home</Link>
+          <Link to="/dashboard" className="hover:underline font-medium">Dashboard</Link>
+        </div>
+      )}
+    </div>
+  );
 };
 
-export default Navbar;                          
+export default Navbar;

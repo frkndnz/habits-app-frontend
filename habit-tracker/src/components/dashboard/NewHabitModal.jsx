@@ -3,17 +3,27 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogTrigger, DialogDescription, DialogContent, DialogTitle, DialogHeader, DialogFooter, DialogClose } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { addHabit } from "../../features/habits/addHabit";
-const NewHabitModal = () => {
+const NewHabitModal = ({ open,onClose,habit,onSave }) => {
 
-    const dispatch = useDispatch();
-    const [isOpen, setIsOpen] = useState(false);
+
+
+    const colorOptions = [
+        { name: "OceanBlue", value: "#3B82F6" },
+        { name: 'Purple', value: '#8B5CF6' },
+        { name: 'Emerald', value: '#10B981' },
+        { name: 'Rose', value: '#F43F5E' },
+        { name: 'Orange', value: '#F97316' },
+        { name: 'Indigo', value: '#6366F1' }
+    ]
 
     const [formData, setFormData] = useState({
-        name:"",
-        title: "",
-        description: ""
+        id: habit ? habit.id : "", // Use habit id if available, otherwise generate a new one
+        name: habit ? habit.name : "",
+        description: habit ? habit.description : "",
+        color: habit ? habit.color: colorOptions[0].value, // Default color
+        isCompletedToday: habit ? habit.isCompletedToday : false
     });
 
     const handleInputChange = (e) => {
@@ -25,52 +35,39 @@ const NewHabitModal = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(addHabit(formData));
-        setIsOpen(false); // Close the modal after submission
+        onSave(formData);
+        onClose(); // Close the modal after submission
 
     };
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-                <Button onClick={() => { setIsOpen(true) }} className="bg-blue-500 hover:bg-blue-600 text-white text-xl sm:text-2xl md:text-3xl font-semibold py-6 px-12 rounded-full shadow-md cursor-pointer">
-                    New Habit
-                </Button>
-
-            </DialogTrigger>
-            <DialogContent className="w-full sm:max-w-md lg:max-w-lg bg-blue-200 rounded-lg shadow-lg  text-black">
-                <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold">Yeni Alışkanlık Ekle</DialogTitle>
-                    <DialogDescription className="text-black">Bu formu doldurarak yeni bir alışkanlık oluşturabilirsin.</DialogDescription>
+        <Dialog open={open} onOpenChange={onClose}>
+            
+            <DialogContent className="sm:max-w-md lg:max-w-lg bg-white border-0 shadow-2xl" style={{ backgroundColor: formData.color }}>
+                <DialogHeader className="space-y-3">
+                    <DialogTitle className="text-2xl font-bold text-gray-900">
+                        Yeni Alışkanlık Ekle
+                    </DialogTitle>
+                    <DialogDescription className="font-semibold text-gray-900">
+                        Bu formu doldurarak yeni bir alışkanlık oluşturabilirsin.
+                    </DialogDescription>
                 </DialogHeader>
-                <form
-                    onSubmit={handleSubmit}
-                >
-                    <div className="grid gap-4 py-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="name">Name</Label>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="name" className="text-sm font-medium text-white">Name</Label>
                             <Input
                                 id="name"
                                 value={formData.name}
                                 onChange={handleInputChange}
                                 name="name"
                                 placeholder="Örn: Yürüyüş"
+                                className="border-gray-200 focus:border-blue-500 focus:ring-blue-500 bg-white text-gray-900"
                                 required
                             />
                         </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="title">Title</Label>
-                            <Input
-                                id="title"
-                                value={formData.title}
-                                onChange={handleInputChange}
-                                name="title"
-                                placeholder="Örn: Günde 30 dakika yürüyüş yap"
-                                required
-                            />
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="description">Description</Label>
+                        <div className="space-y-2">
+                            <Label htmlFor="description" className="text-sm font-medium text-white">Description</Label>
                             <Input
                                 id="description"
                                 type="text"
@@ -78,19 +75,45 @@ const NewHabitModal = () => {
                                 onChange={handleInputChange}
                                 name="description"
                                 placeholder="Örn: Günde 30 dakika yürüyüş yap"
+                                className="border-gray-200 focus:border-blue-500 focus:ring-blue-500 bg-white text-gray-900"
                                 required
                             />
                         </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="color" className="text-sm font-medium text-white">
+                                Color
+                            </Label>
+                            <div className="grid grid-cols-6 gap-3">
+                                {colorOptions.map((color) => (
+                                    <button
+                                        key={color.value}
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, color: color.value }))}
+                                        className={`
+                                                    w-8 h-8 rounded-3xl transition-all duration-200 
+                                                    hover:scale-110 hover:shadow-lg
+                                                    ring-3 ring-offset-1 
+                                                    ${formData.color === color.value
+                                                ? 'ring-gray-800 ring-offset-2'
+                                                : 'ring-transparent ring-offset-0'
+                                            }
+                                      `}
+                                        style={{ backgroundColor: color.value }}
+                                        title={color.name}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                <DialogFooter>
-                    <DialogClose asChild>
-                        <Button type="button" variant="secondary" onClick={() => setIsOpen(false)}>
-                            İptal
-                        </Button>
-                    </DialogClose>
+                    <DialogFooter className="gap-2">
+                        <DialogClose asChild>
+                            <Button type="button" variant="outline" className="border-gray-200 hover:bg-red-500" >
+                                İptal
+                            </Button>
+                        </DialogClose>
 
-                    <Button type="submit">Kaydet</Button>
-                </DialogFooter>
+                        <Button type="submit" className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700">Kaydet</Button>
+                    </DialogFooter>
                 </form>
             </DialogContent>
         </Dialog>

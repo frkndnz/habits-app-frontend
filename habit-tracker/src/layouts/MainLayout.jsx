@@ -7,14 +7,14 @@ const MainLayout = () => {
 
 
     return (
-        <div>
-            <nav className="bg-blue-600 text-white p-4 flex justify-between items-center rounded-lg shadow-md">
+        <div className="min-h-screen flex flex-col gap-4 px-2 sm:px-4 bg-gray-900">
+            <nav className="bg-gradient-to-r from-gray-900 to-teal-600 text-white  px-4 py-3 flex justify-between items-center rounded-lg shadow-md mt-4">
                 <Navbar />
             </nav>
-            <main className="">
+            <main className="flex-1">
                 <Outlet />
             </main>
-            <footer className="bg-green-600 text-white p-4 rounded-lg shadow-md text-center">
+            <footer className="bg-green-600 text-white py-3 px-4 rounded-lg shadow-md text-center text-sm">
                 <p className="font-bold" >&copy; {new Date().getFullYear()} Furkan Deniz</p>
             </footer>
         </div>

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
 import { Link, useLocation } from "react-router-dom";
-
+import { User } from "lucide-react";
 const UserMenu = () => {
     const [isOpen, setOpen] = useState(false);
     const dispatch = useDispatch();
@@ -37,14 +37,14 @@ const UserMenu = () => {
     }
 
     return (
-        <div ref={menuRef} className="relative inline-block ">
+        <div ref={menuRef} className="relative inline-block text-sm sm:text-base ">
 
-            <button className="flex items-center space-x-1 hover:opacity-80 transition w-40 justify-center cursor-pointer"
+            <button className="flex items-center justify-between w-18 sm:w-30 px-3 py-2 rounded-md bg-white/10 text-white hover:bg-white/20 transition-all duration-150"
                 onClick={() => setOpen(prev => !prev)}
             >
-                <span className="font-medium">{user && isAuthenticated ? user.user_name : "Welcome Guest"}</span>
+                <User className="w-5 sm:w-6 h-5 sm:h-6 mr-2" />
                 <svg
-                    className="w-4 h-4"
+                    className="w-4 h-4 m2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -54,7 +54,7 @@ const UserMenu = () => {
             </button>
 
             {isOpen &&(
-                <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg  ">
+                <div className="absolute right-0 mt-2 w-18 sm:w-30 bg-white text-black rounded-lg shadow-lg  z-50 ">
                     <ul className="py-2">
                         {user && isAuthenticated ? (
                             <>

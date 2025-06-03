@@ -1,11 +1,9 @@
 import React from "react";
-
+import LandingPage from "./LandingPage";
 const Home = () => {
 
     return(
-        <h1>
-            Welcome to the Habit Tracker App!
-        </h1>
+        <LandingPage/>
     );
 }
 
