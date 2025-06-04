@@ -1,14 +1,19 @@
 import {configureStore} from '@reduxjs/toolkit';
-import habitsReducer from '../features/habits/habitSlice';
 import authReducer from '../features/auth/authSlice';
-import habitLogsReducer from '../features/habitLogs/habitLogsSlice';
+import { habitApi } from '../features/habits/habitApi';
+import { habitLogApi } from '../features/habitLogs/habitLogApi';
+
 
 const store = configureStore({
   reducer: {
-    habit:habitsReducer,
     auth:authReducer,
-    habitLogs:habitLogsReducer,
+    [habitApi.reducerPath]: habitApi.reducer,
+    [habitLogApi.reducerPath]: habitLogApi.reducer,
     },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(habitApi.middleware, habitLogApi.middleware),
+
 });
 
 export default store;

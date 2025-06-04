@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogTrigger, DialogDescription, DialogContent, DialogTitle, DialogHeader, DialogFooter, DialogClose } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useDispatch } from "react-redux";
-import { addHabit } from "../../features/habits/addHabit";
+
 const NewHabitModal = ({ open,onClose,habit,onSave }) => {
 
 

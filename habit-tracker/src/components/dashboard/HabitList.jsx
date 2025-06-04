@@ -1,23 +1,22 @@
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchHabits } from "../../features/habits/fetchHabit";
-import { updateHabit } from "../../features/habits/updateHabit";
-import { deleteHabit } from "../../features/habits/deleteHabit";
-import { addHabitLog } from "../../features/habitLogs/addHabitLog";
+import React, { useState, useCallback } from "react";
 import HabitCard from "./HabitCard";
 import NewHabitModal from "./NewHabitModal";
-import { selectAllHabits, selectHabitIds } from "../../features/habits/habitSlice";
-
+import { useGetHabitsQuery } from "../../features/habits/habitApi";
+import { useDeleteHabitMutation } from "../../features/habits/habitApi";
+import { useUpdateHabitMutation } from "../../features/habits/habitApi";
+import { useAddHabitLogMutation } from "../../features/habitLogs/habitLogApi";
+import { useDeleteHabitLogMutation } from "../../features/habitLogs/habitLogApi";
 const HabitList = () => {
+    
+    
+   
 
-    const dispatch = useDispatch();
-
-    const habitIds = useSelector(selectHabitIds);
-
-    useEffect(() => {
-        dispatch(fetchHabits());
-    }, []);
-
+    const {data }=useGetHabitsQuery();
+    const [deleteHabit] = useDeleteHabitMutation();
+    const [updateHabit] = useUpdateHabitMutation();
+    const [addHabitLog] = useAddHabitLogMutation();
+    const [deleteHabitLog] = useDeleteHabitLogMutation();
+    console.log("data", data);
 
     
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -30,19 +29,25 @@ const HabitList = () => {
 
     const handleEditSave = (updatedHabit) => {
         console.log("handleEditSave", updatedHabit);
-        dispatch(updateHabit(updatedHabit));
+        updateHabit(updatedHabit).unwrap();
         setIsEditModalOpen(false);
     }
     const handleDeleteClick = useCallback((habitId) => {
         if (window.confirm("Bu alışkanlığı silmek istediğinize emin misiniz?")) {
-            dispatch(deleteHabit(habitId));
+            deleteHabit(habitId).unwrap()
             setIsEditModalOpen(false);
             setSelectedHabit(null);
         }
-    }, [dispatch]);
+    }, );
 
-    const handleMarkComplete = (habitId) => {
-        dispatch(addHabitLog({ habitId }));
+    const handleMarkComplete = (habitId,isCompletedToday) => {
+        const date=new Date().toISOString();
+        if(isCompletedToday){
+            deleteHabitLog({ habitId ,date}).unwrap()
+        }else{
+
+            addHabitLog({ habitId }).unwrap();
+        }
     };
 
     const handleCloseClick = () => {
@@ -55,9 +60,9 @@ const HabitList = () => {
         <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4   rounded-b-xl bg-gray-800   ">
 
-                {habitIds.map((id) => {
+                {data?.value && data.value.map((habit) => {
                     return (
-                        <HabitCard key={id} habitId={id} onEdit={handleEditClick} onDelete={handleDeleteClick} onMarkComplete={handleMarkComplete} />
+                        <HabitCard key={habit.id} habit={habit} onEdit={handleEditClick} onDelete={handleDeleteClick} onMarkComplete={handleMarkComplete} />
                     );
                 })}
             </div>

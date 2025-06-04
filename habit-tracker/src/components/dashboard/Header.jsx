@@ -1,12 +1,11 @@
 import React, { useCallback } from "react";
 import NewHabitModal from "./NewHabitModal";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addHabit } from "../../features/habits/addHabit";
 
+import { useAddHabitMutation } from "../../features/habits/habitApi";
 const Header = () => {
 
-    const dispatch = useDispatch();
+    const [addHabit, { isLoading }] = useAddHabitMutation();
 
     const [isAddHabitModalOpen, setIsAddHabitModalOpen] = useState(false);
 
@@ -15,7 +14,7 @@ const Header = () => {
 
     const handleAddHabit = (habit) => {
 
-        dispatch(addHabit(habit));
+        addHabit(habit).unwrap();
         setIsAddHabitModalOpen(false);
     };
 
