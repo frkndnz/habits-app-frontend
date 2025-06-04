@@ -12,6 +12,7 @@ import ConfirmEmailPage from './pages/ConfirmEmailPage';
 import { isTokenExpired } from './utils/handleJwt';
 import './App.css'
 import { useEffect } from 'react';
+import RequireAuth from './components/RequireAuth';
 
 function App() {
   
@@ -36,7 +37,12 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth> 
+            }
+            />
         </Route>
         <Route path='/auth/login' element={<LoginPage/>}></Route>
         <Route path='/auth/register' element={<RegisterPage/>}></Route> 

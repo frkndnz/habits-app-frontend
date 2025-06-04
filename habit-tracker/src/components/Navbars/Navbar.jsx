@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   return (
     <div className="w-full">
       <div className="flex justify-between items-center relative">
@@ -19,7 +20,12 @@ const Navbar = () => {
         {/* Sol Menü */}
         <div className="hidden sm:flex gap-6 items-center">
           <Link to="/" className="hover:underline font-medium">Home</Link>
-          <Link to="/dashboard" className="hover:underline font-medium">Dashboard</Link>
+          {isAuthenticated && (
+
+            <Link to="/dashboard" className="hover:underline font-medium">Dashboard</Link>
+          )}
+            
+          
         </div>
 
         {/* Orta Başlık */}
