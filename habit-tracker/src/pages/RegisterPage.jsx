@@ -5,40 +5,51 @@ import { parseFieldErrors } from "../utils/parseFieldErrors";
 import { registerUser } from "../features/auth/authSlice";
 
 
-const InputComponent = ({ name, label,type, value ,onChange, errorMap={} }) => (
-        <div className="mb-4">
-            <label className="block mb-2" htmlFor={name}>{label}</label>
-            <input
-                type={type|| "text"}
-                id={name}
-                name={name}
-                value={value}
-                onChange={onChange}
-                className="w-full px-3 py-2 border-3 border-black rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-            />
-            {errorMap[name] && <span className="text-red-500 text-sm">{errorMap[name]}</span>}
-        </div>
-    )
+const InputComponent = ({ name, label, type, value, onChange, errorMap = {} }) => (
+    <div className="mb-5">
+        <label
+            htmlFor={name}
+            className="block mb-2 text-gray-700 dark:text-gray-300 font-medium"
+        >
+            {label}
+        </label>
+        <input
+            type={type || "text"}
+            id={name}
+            name={name}
+            value={value}
+            onChange={onChange}
+            required
+            className={`w-full px-4 py-2 rounded-md border ${errorMap[name]
+                    ? "border-red-500 focus:border-red-600 focus:ring-red-500"
+                    : "border-gray-300 focus:border-teal-500 focus:ring-teal-400"
+                } focus:outline-none focus:ring-2 transition`}
+        />
+        {errorMap[name] && (
+            <p className="mt-1 text-sm text-red-500">{errorMap[name]}</p>
+        )}
+    </div>
+
+)
 
 const RegisterPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isLoading, errorMessages, message } = useSelector((state) => state.auth);
 
-    const [errorMap, setErrorMap] = useState(parseFieldErrors(errorMessages)); 
-    useEffect(()=>{
-       setErrorMap(parseFieldErrors(errorMessages));
-       console.log("errorMap",parseFieldErrors(errorMessages));
-    },[errorMessages]);
+    const [errorMap, setErrorMap] = useState(parseFieldErrors(errorMessages));
+    useEffect(() => {
+        setErrorMap(parseFieldErrors(errorMessages));
+        console.log("errorMap", parseFieldErrors(errorMessages));
+    }, [errorMessages]);
 
 
     const [formData, setFormData] = useState({
         email: "",
         userName: "",
         password: "",
-        firstName:"",
-        lastName:""
+        firstName: "",
+        lastName: ""
     });
 
     const handleChange = (e) => {
@@ -58,25 +69,65 @@ const RegisterPage = () => {
         }
 
     };
-    
+
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <form onSubmit={handleSubmit} className="bg-gray-500 p-6 rounded-lg shadow-md w-full max-w-sm">
-                <h2 className="text-2x1 font-bold mb-4 text-center">Giriş Yap</h2>
-                <InputComponent name="userName" label="Kullanıcı Adı" value={formData.userName} onChange={handleChange} errorMap={errorMap} />
-                <InputComponent name="firstName" label="Ad" value={formData.firstName} onChange={handleChange} errorMap={errorMap} />
-                <InputComponent name="lastName" label="Soyad" value={formData.lastName} onChange={handleChange} errorMap={errorMap} />
-                <InputComponent name="email" label="E-posta" value={formData.email} onChange={handleChange} errorMap={errorMap} />
-                <InputComponent name="password" label="Şifre" type="password" value={formData.password} onChange={handleChange} errorMap={errorMap} /> 
-                
-                <button type="submit"
-                    className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                    disabled={isLoading}>
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
+            <form
+                onSubmit={handleSubmit}
+                className="bg-white dark:bg-gray-800 w-full max-w-md p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
+            >
+                <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6">
+                    Kayıt Ol
+                </h2>
+
+                <InputComponent
+                    name="userName"
+                    label="Kullanıcı Adı"
+                    value={formData.userName}
+                    onChange={handleChange}
+                    errorMap={errorMap}
+                />
+                <InputComponent
+                    name="firstName"
+                    label="Ad"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    errorMap={errorMap}
+                />
+                <InputComponent
+                    name="lastName"
+                    label="Soyad"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    errorMap={errorMap}
+                />
+                <InputComponent
+                    name="email"
+                    label="E-posta"
+                    value={formData.email}
+                    onChange={handleChange}
+                    errorMap={errorMap}
+                />
+                <InputComponent
+                    name="password"
+                    label="Şifre"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    errorMap={errorMap}
+                />
+
+                <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full mt-6 py-2 px-4 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 transition"
+                >
                     {isLoading ? "Kayıt Yapılıyor..." : "Kayıt Ol"}
                 </button>
             </form>
         </div>
+
     )
 
 }

@@ -26,59 +26,82 @@ const LoginPage = () => {
         if (result.payload.isSuccess) {
             navigate("/");
         } else {
-            
+
         }
     }
 
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <form onSubmit={handleSubmit} className="bg-gray-500 p-6 rounded-lg shadow-md w-full max-w-sm">
-                <h2 className="text-2x1 font-bold mb-4 text-center">Giriş Yap</h2>
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
+            <form
+                onSubmit={handleSubmit}
+                className="bg-white dark:bg-gray-800 w-full max-w-md p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
+            >
+                <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6">
+                    Giriş Yap
+                </h2>
+
                 {errorMessages &&
                     errorMessages.map((msg, index) => (
-                        <p key={index} className="text-red-500 text-sm mb-2">
+                        <p key={index} className="text-red-500 text-sm mb-3">
                             {msg}
                         </p>
                     ))}
 
-                <div className="mb-4">
-                    <label className="block mb-2" htmlFor="emailOrUserName">E-posta veya Kullanıcı Adı</label>
+                <div className="mb-5">
+                    <label
+                        htmlFor="emailOrUserName"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    >
+                        E-posta veya Kullanıcı Adı
+                    </label>
                     <input
                         type="text"
                         name="emailOrUserName"
                         value={formData.emailOrUserName}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border-3 border-black rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
                         required
                     />
                 </div>
-                <div className="mb-4">
-                    <label className="block  mb-2" htmlFor="password">Şifre</label>
+
+                <div className="mb-5">
+                    <label
+                        htmlFor="password"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    >
+                        Şifre
+                    </label>
                     <input
                         type="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border-3 border-black rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
                         required
-                    ></input>
+                    />
                 </div>
-                <button type="submit"
-                    className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                    disabled={isLoading}>
-                    {isLoading ? "Giriş Yapılıyor..." : "Giriş Yap"}    
+
+                <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full py-2 px-4 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 transition"
+                >
+                    {isLoading ? "Giriş Yapılıyor..." : "Giriş Yap"}
                 </button>
-                <button>
-                    <p className="text-center mt-4">
-                        Hesabın yok mu?{" "}
-                        <a href="/auth/register" className="text-blue-500 hover:underline">
-                            Kayıt Ol
-                        </a>
-                    </p>
-                </button>
+
+                <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
+                    Hesabın yok mu?{" "}
+                    <a
+                        href="/auth/register"
+                        className="text-teal-500 hover:underline font-medium"
+                    >
+                        Kayıt Ol
+                    </a>
+                </p>
             </form>
         </div>
+
 
     )
 }

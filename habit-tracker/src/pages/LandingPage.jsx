@@ -2,14 +2,33 @@ import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import { Target, CalendarCheck, Activity, Star, Clock ,Rocket} from "lucide-react";
+import Lottie from "lottie-react";
+import habitAnimation from "../assets/lottie/habit.json";
 
 export default function LandingPage() {
   const featureList = [
-    "Daily Tracking",
-    "Visual Progress",
-    "Reminder Notifications",
-    "Streaks",
-    "Dark Mode",
+    {
+      title: 'Smart Tracking',
+      descripion: 'Track your habits intelligently with automatic insigths',
+      icon: Target
+    },
+    {
+      title: 'Custom Reminders',
+      descripion: 'Never miss a habit with timely custom alerts',
+      icon: Clock
+    },
+    {
+      title: 'Visual Progress',
+      descripion: 'See your growth visually and stay motivated',
+      icon: Activity
+    },
+    {
+      title: 'Smart Tracking',
+      descripion: 'Track your habits intelligently with automatic insigths',
+      icon: Star
+    },
+
   ];
 
   return (
@@ -19,18 +38,31 @@ export default function LandingPage() {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center"
+        className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10 text-center lg:text-left px-4 sm:px-10"
       >
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-teal-400 mb-4">
-          Build Habits That Stick
-        </h1>
-        <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-          Stay consistent with our modern habit tracker app, designed for growth and momentum.
-        </p>
-        <button className="mt-6 px-6 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition shadow-lg">
-          Get Started
-        </button>
+        {/* Text Section */}
+        <div className="w-full lg:w-1/2">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-teal-400 mb-4">
+            Build Habits That Stick
+          </h1>
+          <p className="text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">
+            Stay consistent with our modern habit tracker app, designed for growth and momentum.
+          </p>
+          <button className="mt-6 px-6 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition shadow-lg">
+            Get Started
+          </button>
+        </div>
+
+        {/* Animation Section */}
+        <div className="w-full lg:w-1/2 flex justify-center">
+          <Lottie
+            animationData={habitAnimation}
+            loop={true}
+            className="w-full max-w-md"
+          />
+        </div>
       </motion.section>
+
 
       {/* Features Section */}
       <motion.section
@@ -59,9 +91,10 @@ export default function LandingPage() {
                 whileHover={{ scale: 1.05 }}
                 className="bg-gray-800 p-6 rounded-xl shadow-md text-center h-full flex flex-col justify-center border border-gray-700"
               >
-                <h3 className="text-xl font-semibold text-teal-400 mb-2">{feature}</h3>
+                <feature.icon className="mx-auto mb-3 text-teal-400 " size={36} ></feature.icon>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">{feature.title}</h3>
                 <p className="text-gray-400">
-                  Stay on track with smart tools to support your daily goals and long-term vision.
+                  {feature.descripion}
                 </p>
               </motion.div>
             </SwiperSlide>
@@ -74,15 +107,20 @@ export default function LandingPage() {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-gray-800 rounded-xl p-8 text-center border border-gray-700 shadow-lg"
+        className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-8 text-center border border-gray-700 shadow-lg max-w-3xl mx-auto"
       >
-        <h2 className="text-2xl font-bold text-teal-300 mb-4">
+        <h2 className="text-2xl font-bold text-teal-300 mb-2 flex justify-center items-center gap-2">
+          <Rocket className="w-6 h-6 text-teal-400" />
           Start building better habits today
         </h2>
-        <button className="px-6 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition">
+        <p className="text-gray-400 mb-6 max-w-xl mx-auto">
+          Join thousands building better habits with our easy-to-use tracker. It’s free, forever.
+        </p>
+        <button className="px-6 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition duration-300 transform hover:scale-105 shadow-md">
           Sign Up Free
         </button>
       </motion.section>
+
     </div>
   );
 }
