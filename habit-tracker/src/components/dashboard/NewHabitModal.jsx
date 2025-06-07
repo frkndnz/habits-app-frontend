@@ -1,10 +1,10 @@
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogTrigger, DialogDescription, DialogContent, DialogTitle, DialogHeader, DialogFooter, DialogClose } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-const NewHabitModal = ({ open,onClose,habit,onSave }) => {
+const NewHabitModal =React.memo( ({ open,onClose,habit,onSave }) => {
 
 
 
@@ -32,12 +32,12 @@ const NewHabitModal = ({ open,onClose,habit,onSave }) => {
             [name]: value
         });
     }
-    const handleSubmit = (e) => {
+    const handleSubmit =useCallback( (e) => {
         e.preventDefault();
         onSave(formData);
         onClose(); // Close the modal after submission
 
-    };
+    }, [formData, onSave, onClose]);
 
     return (
         <Dialog open={open} onOpenChange={onClose}>
@@ -62,7 +62,9 @@ const NewHabitModal = ({ open,onClose,habit,onSave }) => {
                                 name="name"
                                 placeholder="Örn: Yürüyüş"
                                 className="border-gray-200 focus:border-blue-500 focus:ring-blue-500 bg-white text-gray-900"
-                                required
+                                required 
+                                maxLength={20} // Limit name length to 50 characters
+                                
                             />
                         </div>
                         <div className="space-y-2">
@@ -118,4 +120,5 @@ const NewHabitModal = ({ open,onClose,habit,onSave }) => {
         </Dialog>
     )
 }
+);
 export default NewHabitModal;

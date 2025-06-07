@@ -1,14 +1,23 @@
 import React from "react";
 import { Pencil, Trash2, CheckCircle } from "lucide-react";
+import { useGetHabitsQuery } from "../../features/habits/habitApi";
 
-const HabitCard = ({ habit, onEdit, onDelete, onMarkComplete }) => {
 
+const HabitCard =React.memo( ({ habitId, onEdit, onDelete, onMarkComplete }) => {
+
+    const {habit}=useGetHabitsQuery(undefined, {
+        selectFromResult: ({ data }) => ({
+            habit: data?.value.find(h => h.id === habitId) 
+        })
+    });
+    if(!habit)
+        return null;
 
     console.log("HabitCard render", habit);
 
     return (
         <div
-            className="group relative p-3 sm:p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-white/20 backdrop-blur-sm"
+            className="group relative p-3 sm:p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-white/20 backdrop-blur-sm flex flex-col justify-between h-full overflow-hidden"
             style={{
                 background: `linear-gradient(135deg, ${habit.color}95, ${habit.color}CC)`,
             }}
@@ -21,8 +30,8 @@ const HabitCard = ({ habit, onEdit, onDelete, onMarkComplete }) => {
             </div>
 
             {/* Content */}
-            <div className="mb-6">
-                <h3 className="text-sm sm:text-base md:text-lg font-bold text-white mb-2 tracking-wide">
+            <div className="mb-6 mt-4 sm:mt-0">
+                <h3 className="  text-[10px]  sm:text-base md:text-lg  font-bold text-white mb-2 tracking-wide truncate">
                     {habit.name.toUpperCase()}
                 </h3>
                 <div className="flex items-center gap-2">
@@ -46,7 +55,7 @@ const HabitCard = ({ habit, onEdit, onDelete, onMarkComplete }) => {
                 <button
                     title={habit.isCompletedToday ? "Tamamlandı işaretini kaldır" : "Tamamlandı olarak işaretle"}
                     className={`
-        relative p-3 rounded-xl transition-all duration-300 border 
+        relative p-2 sm:p-3 rounded-xl transition-all duration-300 border 
         ${habit.isCompletedToday
                             ? "bg-green-500 hover:bg-green-600 border-green-600 text-white"
                             : "bg-white/10 hover:bg-white/20 border-white/30 text-white/70"
@@ -76,17 +85,17 @@ const HabitCard = ({ habit, onEdit, onDelete, onMarkComplete }) => {
 
 
                 {/* Right side - Edit/Delete buttons */}
-                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <div className="flex gap-1 sm:gap-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <button
                         title="Edit Habit"
-                        className="p-2.5 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-all duration-200 hover:scale-110"
-                        onClick={() => onEdit(habit)}
+                        className="p-2 sm:p-2.5 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-all duration-200 hover:scale-110"
+                        onClick={() => onEdit(habit.id)}
                     >
                         <Pencil size={16} className="text-white" />
                     </button>
                     <button
                         title="Delete Habit"
-                        className="p-2.5 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-red-500/80 transition-all duration-200 hover:scale-110"
+                        className="p-2 sm:p-2.5 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-red-500/80 transition-all duration-200 hover:scale-110"
                         onClick={() => onDelete(habit.id)}
                     >
                         <Trash2 size={16} className="text-white" />
@@ -99,5 +108,8 @@ const HabitCard = ({ habit, onEdit, onDelete, onMarkComplete }) => {
         </div>
     )
 }
+
+
+);
 
 export default HabitCard;

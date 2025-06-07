@@ -2,16 +2,23 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Jar = ({ habits, title }) => {
+    console.log("Jar render");
+    const colorClasses = {
+  green: "from-green-500 to-white-500",
+  red: "from-red-500 to-white-600",
+};
+    const color=title === "Complete" ? "green" :"red"; // Yeşil tamamlananlar için, mavi tamamlanmayanlar için
     return (
-        <div className="relative w-64 h-[350px] mx-auto flex flex-col items-center justify-end overflow-hidden">
+        <div className="relative w-36 sm:w-64 h-36 sm:h-64 mx-auto flex flex-col items-center justify-end overflow-hidden mt-4">
             {/* Kavanozun Boynu (üst kısım) */}
-            <div className="absolute top-0 w-40 h-8 bg-gray-300 rounded-b-xl rounded-t-lg z-20"></div>
+            <div className="absolute top-0 w-25 sm:w-40 h-4 sm:h-8 bg-gray-300 rounded-b-xl rounded-t-lg z-20"></div>
 
             {/* Kavanozun Gövdesi */}
-            <div className="relative w-full h-full border-x-4 border-b-4 border-blue-200 rounded-b-[4rem] bg-gradient-to-b from-blue-50 to-blue-100 shadow-xl pt-16 flex flex-col justify-end items-center px-4 pb-4">
+            <div className={`relative w-full h-full border-x-4 border-b-4 border-blue-200 rounded-b-[4rem]  shadow-xl pt-16 flex flex-col justify-end items-center px-4 pb-4 bg-gradient-to-b ${colorClasses[color]} `} 
+           >
                 {/* Başlık */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30">
-                    <h3 className="text-center font-bold text-lg text-slate-700 bg-white/80 px-4 py-1 rounded-full shadow-sm border border-slate-200 backdrop-blur-sm">
+                <div className="  absolute top-1  left-1/2 -translate-x-1/2 z-30">
+                    <h3 className="text-center font-bold text-[10px] sm:text-lg text-slate-700 bg-white/80 px-4 py-1 rounded-full shadow-sm border border-slate-200 backdrop-blur-sm">
                         {title}
                     </h3>
                 </div>
@@ -54,7 +61,7 @@ const Jar = ({ habits, title }) => {
                                         ease: "easeInOut"
                                     }
                                 }}
-                                className="w-12 h-12 rounded-full text-white flex items-center justify-center text-sm font-semibold"
+                                className="w-8 sm:w-12 h-8 sm:h-12 rounded-full text-white flex items-center justify-center text-sm font-semibold"
                                 style={{ 
                                     backgroundColor: habit.color || '#3b82f6',
                                     boxShadow: `0 4px 12px ${habit.color || '#3b82f6'}40, inset 0 1px 2px rgba(255,255,255,0.3)`
@@ -68,7 +75,7 @@ const Jar = ({ habits, title }) => {
             </div>
 
             {/* Kavanozun Alt Gölgesi */}
-            <div className="absolute -bottom-2 w-48 h-8 bg-gray-400 rounded-full blur-md opacity-50"></div>
+            <div className="absolute -bottom-2  w-24 sm:w-48  h-8 bg-gray-400 rounded-full blur-md opacity-50"></div>
         </div>
     );
 };

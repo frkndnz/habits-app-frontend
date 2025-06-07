@@ -7,62 +7,71 @@ import { useUpdateHabitMutation } from "../../features/habits/habitApi";
 import { useAddHabitLogMutation } from "../../features/habitLogs/habitLogApi";
 import { useDeleteHabitLogMutation } from "../../features/habitLogs/habitLogApi";
 const HabitList = () => {
-    
-    
-   
 
-    const {data }=useGetHabitsQuery();
+
+    const { data } = useGetHabitsQuery();
+
+
+
+
     const [deleteHabit] = useDeleteHabitMutation();
     const [updateHabit] = useUpdateHabitMutation();
     const [addHabitLog] = useAddHabitLogMutation();
     const [deleteHabitLog] = useDeleteHabitLogMutation();
     console.log("data", data);
 
-    
+
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedHabit, setSelectedHabit] = useState(null);
 
-    const handleEditClick = (habit) => {
+    const handleEditClick = useCallback((habitId) => {
+        const habit = data?.value.find(h => h.id === habitId);
+        if (!habit) return;
         setSelectedHabit(habit);
         setIsEditModalOpen(true);
-    };
+    }, []);
 
-    const handleEditSave = (updatedHabit) => {
-        console.log("handleEditSave", updatedHabit);
-        updateHabit(updatedHabit).unwrap();
-        setIsEditModalOpen(false);
-    }
+    const handleEditSave = useCallback(async (updatedHabit) => {
+        try {
+            await updateHabit(updatedHabit).unwrap();
+            setIsEditModalOpen(false);
+        } catch (err) {
+            console.error("Güncelleme başarısız:", err);
+        }
+    }, [updateHabit]);
+
+
     const handleDeleteClick = useCallback((habitId) => {
         if (window.confirm("Bu alışkanlığı silmek istediğinize emin misiniz?")) {
             deleteHabit(habitId).unwrap()
             setIsEditModalOpen(false);
             setSelectedHabit(null);
         }
-    }, );
+    }, [deleteHabit]);
 
-    const handleMarkComplete = (habitId,isCompletedToday) => {
-        const date=new Date().toISOString();
-        if(isCompletedToday){
-            deleteHabitLog({ habitId ,date}).unwrap()
-        }else{
+    const handleMarkComplete = useCallback((habitId, isCompletedToday) => {
+        const date = new Date().toISOString();
+        if (isCompletedToday) {
+            deleteHabitLog({ habitId, date }).unwrap()
+        } else {
 
             addHabitLog({ habitId }).unwrap();
         }
-    };
+    }, [addHabitLog, deleteHabitLog]);
 
-    const handleCloseClick = () => {
+    const handleCloseClick = useCallback(() => {
         setIsEditModalOpen(false);
         setSelectedHabit(null);
-    }
+    }, []);
 
 
     return (
         <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4   rounded-b-xl bg-gray-800   ">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4   rounded-b-xl bg-gray-800   ">
 
                 {data?.value && data.value.map((habit) => {
                     return (
-                        <HabitCard key={habit.id} habit={habit} onEdit={handleEditClick} onDelete={handleDeleteClick} onMarkComplete={handleMarkComplete} />
+                        <HabitCard key={habit.id} habitId={habit.id} onEdit={handleEditClick} onDelete={handleDeleteClick} onMarkComplete={handleMarkComplete} />
                     );
                 })}
             </div>
