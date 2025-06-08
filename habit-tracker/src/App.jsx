@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserFromToken } from './features/auth/authSlice';
 import { logout } from './features/auth/authSlice';
 import MainLayout from './layouts/MainLayout';
@@ -16,6 +16,8 @@ import RequireAuth from './components/RequireAuth';
 
 function App() {
   
+  const isAuthChecked=useSelector((state) => state.auth.isAuthChecked);
+
   const dispatch = useDispatch();
   useEffect(()=>{
     const token = localStorage.getItem('token');
@@ -31,6 +33,11 @@ function App() {
     }
     
   },[]);
+
+  if(!isAuthChecked){
+    console.log("isAuthChecked false");
+    return <div className="flex items-center justify-center h-screen bg-gray-100">Loading...</div>;
+  }
 
   return (
     <Router>

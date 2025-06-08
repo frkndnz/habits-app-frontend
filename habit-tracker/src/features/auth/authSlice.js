@@ -53,6 +53,7 @@ const initialState = {
     token: token ? token : null,
     isLoading: false,
     isAuthenticated: false, 
+    isAuthChecked: false,
     errorMessages: null,
     message:null
 }
@@ -67,11 +68,13 @@ const authSlice = createSlice({
             state.errorMessages = null;
             state.isAuthenticated= false; 
             state.token = null;
+            state.isAuthChecked = true;
             localStorage.removeItem('token');
         },
         setUserFromToken: (state,action) => {
             state.user=handleJwt(action.payload); 
             state.isAuthenticated = true;
+            state.isAuthChecked = true;
             console.log("setUserFromToken",state.user); 
         }
     },

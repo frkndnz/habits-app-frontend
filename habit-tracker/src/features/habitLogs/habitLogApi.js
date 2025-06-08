@@ -1,19 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { baseApi } from "../baseApi";
 import { habitApi } from "../habits/habitApi";
 
-export const habitLogApi = createApi({
-    reducerPath: 'habitLogApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: 'https://localhost:7201/',
-        prepareHeaders: (headers) => {
-            headers.set('Content-Type', 'application/json');
-            const token = localStorage.getItem('token');
-            if (token) {
-                headers.set('Authorization', `Bearer ${token}`);
-            }
-            return headers;
-        },
-    }),
+export const habitLogApi = baseApi.injectEndpoints({
+    
     endpoints: (builder) => ({
         getHabitLogs: builder.query({
             query: () => 'habitLogs',
@@ -41,6 +30,7 @@ export const habitLogApi = createApi({
                     message: response.message,
                 };
             },
+            invalidatesTags: ["SummaryStats"],
             async onQueryStarted(habitLog, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
@@ -51,6 +41,7 @@ export const habitLogApi = createApi({
                                 draft.value[index].isCompletedToday = true;
                             }
                         }));
+                        
                     }
                 } catch (error) {
                     console.error('Update failed:', error);
@@ -85,7 +76,8 @@ export const habitLogApi = createApi({
                 } catch (error) {
                     console.error('Update failed:', error);
                 }
-            }
+            },
+            invalidatesTags: ["SummaryStats"],
         }),
     })
 });

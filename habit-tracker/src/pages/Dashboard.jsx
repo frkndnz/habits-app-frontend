@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/dashboard/Header";
 import HabitList from "../components/dashboard/HabitList";
 import { JarSection } from "../components/dashboard/JarSection";
-import SummaryStats from "../components/dashboard/SummaryStats";
+import { SummaryStats } from "../components/dashboard/StatsTab/SummaryStats";
 import { Tabs,
   TabsList,
   TabsTrigger,

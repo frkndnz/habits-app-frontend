@@ -1,19 +1,6 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-
-export const habitApi = createApi({
-    reducerPath: 'habitApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: 'https://localhost:7201/',
-
-        prepareHeaders: (headers) => {
-            headers.set('Content-Type', 'application/json');
-            const token = localStorage.getItem('token');
-            if (token) {
-                headers.set('Authorization', `Bearer ${token}`);
-            }
-            return headers;
-        },
-    }),
+import { baseApi } from '../baseApi';
+export const habitApi = baseApi.injectEndpoints({
+   
     endpoints: (builder) => ({
         getHabits: builder.query({
             query: () => 'habits',

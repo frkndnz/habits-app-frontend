@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback ,useRef} from "react";
 import HabitCard from "./HabitCard";
 import NewHabitModal from "./NewHabitModal";
 import { useGetHabitsQuery } from "../../features/habits/habitApi";
@@ -19,13 +19,14 @@ const HabitList = () => {
     const [addHabitLog] = useAddHabitLogMutation();
     const [deleteHabitLog] = useDeleteHabitLogMutation();
     console.log("data", data);
-
+const dataRef = useRef(null);
+dataRef.current = data;
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedHabit, setSelectedHabit] = useState(null);
 
     const handleEditClick = useCallback((habitId) => {
-        const habit = data?.value.find(h => h.id === habitId);
+        const habit = dataRef.current?.value.find(h => h.id === habitId);
         if (!habit) return;
         setSelectedHabit(habit);
         setIsEditModalOpen(true);
