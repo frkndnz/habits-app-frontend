@@ -3,6 +3,7 @@ import Header from "../components/dashboard/Header";
 import HabitList from "../components/dashboard/HabitList";
 import { JarSection } from "../components/dashboard/JarSection";
 import { SummaryStats } from "../components/dashboard/StatsTab/SummaryStats";
+import { HabitDetailStatsList } from "../components/dashboard/statsTab/HabitDetailStatsList";
 import { Tabs,
   TabsList,
   TabsTrigger,
@@ -35,6 +36,7 @@ const Dashboard = () => {
                         </TabsContent>
                         <TabsContent value="stats">
                             <SummaryStats />
+                            <HabitDetailStatsList/>
                         </TabsContent>
                     </Tabs>
                 </div>
