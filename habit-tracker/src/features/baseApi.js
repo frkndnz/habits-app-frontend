@@ -13,6 +13,6 @@ export const baseApi = createApi({
             return headers;
         },
     }),
-    tagTypes: ["Habits,SummaryStats", "HabitDetails", "HabitLogs"],
+    tagTypes: ["Habits,SummaryStats", "HabitDetails", "HabitLogs","Category"],
     endpoints:()=>({}),
 });
