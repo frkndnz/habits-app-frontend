@@ -4,10 +4,12 @@ import HabitList from "../components/dashboard/HabitList";
 import { JarSection } from "../components/dashboard/JarSection";
 import { SummaryStats } from "../components/dashboard/StatsTab/SummaryStats";
 import { HabitDetailStatsList } from "../components/dashboard/statsTab/HabitDetailStatsList";
+import { CompletionPieChart } from "../components/dashboard/statsTab/CompletionPieChart";
 import { Tabs,
   TabsList,
   TabsTrigger,
   TabsContent,} from "@/components/ui/tabs"
+import CategorySuccessChart from "../components/dashboard/statsTab/CategorySuccessChart";
 
 const Dashboard = () => {
     return (
@@ -36,6 +38,10 @@ const Dashboard = () => {
                         </TabsContent>
                         <TabsContent value="stats">
                             <SummaryStats />
+                            <div className="w-full px-10  mx-auto grid grid-cols-1 sm:grid-cols-2 items-stretch  gap-4 mt-6  ">
+                            <CompletionPieChart/>
+                            <CategorySuccessChart/>
+                            </div>
                             <HabitDetailStatsList/>
                         </TabsContent>
                     </Tabs>

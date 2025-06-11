@@ -3,14 +3,14 @@ import { Pencil, Trash2, CheckCircle } from "lucide-react";
 import { useGetHabitsQuery } from "../../features/habits/habitApi";
 
 
-const HabitCard =React.memo( ({ habitId, onEdit, onDelete, onMarkComplete }) => {
+const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => {
 
-    const {habit}=useGetHabitsQuery(undefined, {
+    const { habit } = useGetHabitsQuery(undefined, {
         selectFromResult: ({ data }) => ({
-            habit: data?.value.find(h => h.id === habitId) 
+            habit: data?.value.find(h => h.id === habitId)
         })
     });
-    if(!habit)
+    if (!habit)
         return null;
 
     console.log("HabitCard render", habit);
@@ -34,6 +34,12 @@ const HabitCard =React.memo( ({ habitId, onEdit, onDelete, onMarkComplete }) => 
                 <h3 className="  text-[10px]  sm:text-base md:text-lg  font-bold text-white mb-2 tracking-wide truncate">
                     {habit.name.toUpperCase()}
                 </h3>
+                <h2
+                    className="border border-blue-400 rounded-full w-fit px-4 py-1 mx-auto mb-4 text-white  font-semibold text-sm tracking-wide bg-blue-400/10 shadow-sm backdrop-blur-md"
+                >
+                    {habit.categoryName.toUpperCase()}
+                </h2>
+
                 <div className="flex items-center gap-2">
                     {habit.isCompletedToday ? (
                         <div className="flex items-center gap-2 text-white/90">
@@ -61,13 +67,13 @@ const HabitCard =React.memo( ({ habitId, onEdit, onDelete, onMarkComplete }) => 
                             : "bg-white/10 hover:bg-white/20 border-white/30 text-white/70"
                         }
     `}
-                    onClick={() => onMarkComplete(habit.id,habit.isCompletedToday)}
+                    onClick={() => onMarkComplete(habit.id, habit.isCompletedToday)}
                 >
                     <CheckCircle
                         size={20}
                         className={`transition-all duration-200 ${habit.isCompletedToday
-                                ? "text-white"
-                                : "group-hover/btn:text-white"
+                            ? "text-white"
+                            : "group-hover/btn:text-white"
                             }`}
                     />
 

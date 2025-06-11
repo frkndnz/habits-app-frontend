@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
+import { useRef } from "react";
 export const HabitDetailStatsList = () => {
 
     const { data, isLoading, isError } = useGetHabitDetailsQuery();
@@ -13,7 +14,8 @@ export const HabitDetailStatsList = () => {
 
     if (isError || !data) return <div>Error loading details..</div>
 
-    const habits = data.value;
+    
+    const habits = data?.value;
 
     const getColorClasses = (colorCode) => {
         // Hex color kodunu daha koyu bir tona çevirmek için
