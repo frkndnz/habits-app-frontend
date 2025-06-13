@@ -3,6 +3,7 @@
 Bu depo, kullanıcıların alışkanlıklarını yönetmelerine olanak tanıyan, istatistiklerle desteklenmiş bir **alışkanlık takip web uygulamasının ön yüzünü** barındırır. Modern teknolojilerle geliştirilmiş olup, sezgisel bir kullanıcı deneyimi sunmayı hedefler.
 
 ---
+![Demo](./assets/habitapp.gif)
 
 ## 🌟 Temel Özellikler
 
@@ -17,6 +18,7 @@ HabitsApp ön yüz uygulaması, kullanıcılara alışkanlıklarını etkili bir
 * 📱 **Tam Duyarlı Tasarım:** Her türlü cihazda (masaüstü, tablet, mobil) sorunsuz bir kullanıcı deneyimi.
 
 ---
+
 
 ## ⚙️ Teknoloji Yığını
 
