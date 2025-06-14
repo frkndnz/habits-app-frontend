@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserFromToken } from './features/auth/authSlice';
@@ -51,7 +52,13 @@ function App() {
             </RequireAuth> 
             }
             />
+          <Route path='blogs'></Route>
+          <Route path='blogs/:id'></Route>
         </Route>
+
+        
+
+
         <Route path='/auth/login' element={<LoginPage/>}></Route>
         <Route path='/auth/register' element={<RegisterPage/>}></Route> 
         <Route path='/auth/confirm-email' element={<ConfirmEmailPage/>}></Route>

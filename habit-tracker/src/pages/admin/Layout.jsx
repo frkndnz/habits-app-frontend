@@ -19,7 +19,7 @@ export default function AdminLayout() {
         <nav className="space-y-2">
           <Link to="/admin" className="block hover:text-gray-300">Dashboard</Link>
           <Link to="/admin/users" className="block hover:text-gray-300">Users</Link>
-          <Link to="/admin/settings" className="block hover:text-gray-300">Settings</Link>
+          <Link to="/admin/blogs" className="block hover:text-gray-300">Blogs</Link>
         </nav>
       </div>
 
