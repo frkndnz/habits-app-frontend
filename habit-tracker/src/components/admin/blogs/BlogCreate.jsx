@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import { useAddBlogPostMutation } from "../../../features/blogs/blogApi";
+export const BlogCreate = () => {
 
-export const BlogCreate=()=>{
+  const [addBlogPost]=useAddBlogPostMutation();
 
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     title: "",
     shortDescription: "",
     content: "",
@@ -20,13 +22,30 @@ export const BlogCreate=()=>{
     }
   };
 
-  
 
-  const handleSubmit=()=>{
 
+  const handleSubmit = async(e) => {
+    
+    e.preventDefault();
+    
+    const formDataToSend = new FormData();
+
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("shortDescription", formData.shortDescription);
+    formDataToSend.append("content", formData.content);
+    formDataToSend.append("image", formData.image);
+
+
+    console.log(formDataToSend.get("title"));
+console.log(formDataToSend.get("image"));
+    await addBlogPost(formDataToSend).unwrap();
   }
-    return(
-      <div className="max-w-4xl mx-auto p-6 space-y-6">
+
+
+  return (
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
+
+    <div className="max-w-4xl mx-auto p-6 space-y-6">
       <h1 className="text-2xl font-bold">Yeni Blog Yazısı Oluştur</h1>
 
       {/* Title */}
@@ -42,7 +61,7 @@ export const BlogCreate=()=>{
           placeholder="Blog başlığı"
           value={formData.title}
           onChange={handleChange}
-        />
+          />
       </div>
 
       {/* Short Description */}
@@ -58,11 +77,44 @@ export const BlogCreate=()=>{
           placeholder="Kısa açıklama"
           value={formData.shortDescription}
           onChange={handleChange}
-        />
+          />
+      </div>
+
+      <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-700">
+        📷 Fotoğraf Yükle
+      </label>
+
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 bg-gray-100 border border-gray-300 p-4 rounded-lg">
+        <input
+        id="image"
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleChange}
+          className="file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-blue-600 file:text-white
+          hover:file:bg-blue-700
+          transition duration-200"
+          />
+
+        {formData.image && (
+          <div className="flex flex-col items-start">
+            <p className="text-sm text-gray-600 mb-1">
+              Seçilen: <span className="font-medium">{formData.image.name}</span>
+            </p>
+            <img
+              src={URL.createObjectURL(formData.image)}
+              alt="Preview"
+              className="w-32 h-32 object-cover rounded border shadow-sm"
+              />
+          </div>
+        )}
       </div>
 
       {/* Content - Markdown Editor */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
         <div>
           <label className="block mb-1 font-semibold" htmlFor="content">
             İçerik (Markdown)
@@ -75,26 +127,27 @@ export const BlogCreate=()=>{
             placeholder="Markdown formatında içeriği buraya yazın..."
             value={formData.content}
             onChange={handleChange}
-          />
+            />
         </div>
 
         {/* Preview */}
         <div>
           <label className="block mb-1 font-semibold">Önizleme</label>
-          <div className="prose max-w-none border border-gray-300 rounded p-4 overflow-auto h-[360px] bg-white text-gray-800">
-            <ReactMarkdown>{formData.content || "Markdown içeriğiniz burada görünecek..."}</ReactMarkdown>
+          <div className="prose max-w-none border border-gray-300  rounded p-4 overflow-auto h-[360px] bg-white text-gray-800">
+            <ReactMarkdown className="text-left">{formData.content || "Markdown içeriğiniz burada görünecek..."}</ReactMarkdown>
           </div>
         </div>
       </div>
 
       {/* Submit Button */}
       <button
-        type="button"
+        type="submit"
         className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
-        onClick={handleSubmit}
-      >
+      
+        >
         Kaydet
       </button>
     </div>
-    )
+        </form>
+  )
 }
