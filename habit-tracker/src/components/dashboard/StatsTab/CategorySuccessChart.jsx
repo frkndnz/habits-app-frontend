@@ -11,8 +11,10 @@ import {
   Legend,
 } from 'recharts';
 
+import { useGetCategoryStatsQuery } from '../../../features/stats/statsApi';
+
 // Örnek veri
-const data = [
+const dataTest = [
   { categoryName: "Sağlık", successRate: 72.73, habitsCount: 9 },
   { categoryName: "Eğitim", successRate: 50.0, habitsCount: 4 },
   { categoryName: "Kategorisiz", successRate: 25.0, habitsCount: 12 },
@@ -25,7 +27,7 @@ const data = [
 const CustomComboTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     const success = payload.find(p => p.dataKey === 'successRate');
-    const count = payload.find(p => p.dataKey === 'habitsCount');
+    const count = payload.find(p => p.dataKey === 'habitCount');
 
     return (
       <div className="bg-gray-800 text-white p-3 rounded-lg shadow-lg">
@@ -39,6 +41,13 @@ const CustomComboTooltip = ({ active, payload, label }) => {
 };
 
 const CategorySuccessChart = () => {
+
+
+  const {data,error}=useGetCategoryStatsQuery();
+
+
+
+
   return (
     <div className="flex flex-col items-center justify-center bg-gray-900 p-6 rounded-2xl shadow-md w-full  mx-auto mt-6 h-[400px] ">
       <h2 className="text-xl font-bold text-white mb-4">
@@ -47,7 +56,7 @@ const CategorySuccessChart = () => {
       <div style={{ width: '100%', height: 250 }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
-            data={data}
+            data={data?.value}
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
@@ -85,7 +94,7 @@ const CategorySuccessChart = () => {
             <Line
               yAxisId="right"
               type="monotone"
-              dataKey="habitsCount"
+              dataKey="habitCount"
               stroke="#3b82f6"
               strokeWidth={3}
               name="Alışkanlık Sayısı"

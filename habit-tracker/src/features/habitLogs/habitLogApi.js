@@ -62,6 +62,7 @@ export const habitLogApi = baseApi.injectEndpoints({
                     message: response.message,
                 };
             },
+            invalidatesTags: ["SummaryStats","HabitDetails"],
             async onQueryStarted({ habitId, date }, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;

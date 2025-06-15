@@ -2,6 +2,11 @@ import { baseApi } from "../baseApi";
 
 export const blogApi=baseApi.injectEndpoints({
     endpoints:(builder)=>({
+        getBlogPosts:builder.query({
+            query:()=> 'blogs',
+            providesTags:['BlogPosts'],
+
+        }),
         addBlogPost:builder.mutation({
             query:(blogPost)=>({
                 url:'blogs',
@@ -9,8 +14,29 @@ export const blogApi=baseApi.injectEndpoints({
                 body:blogPost,
                 
             })
+        }),
+         deleteBlogPost: builder.mutation({
+            query: (id) => ({
+                url: `blogs/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['BlogPosts'],
+        }),
+        updateBlogPost:builder.mutation({
+            query:({id,blogPost})=>({
+                url:`blogs/${id}`,
+                method:'PUT',
+                body:blogPost
+            }),
+            invalidatesTags: ['BlogPosts'],
         })
     })
 })
 
-export const {useAddBlogPostMutation}=blogApi;
+
+
+export const {useAddBlogPostMutation,
+            useGetBlogPostsQuery,
+            useDeleteBlogPostMutation,
+            useUpdateBlogPostMutation
+}=blogApi;

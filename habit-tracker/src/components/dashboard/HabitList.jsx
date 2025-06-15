@@ -18,7 +18,7 @@ const HabitList = () => {
     const [updateHabit] = useUpdateHabitMutation();
     const [addHabitLog] = useAddHabitLogMutation();
     const [deleteHabitLog] = useDeleteHabitLogMutation();
-    console.log("data", data);
+  
 const dataRef = useRef(null);
 dataRef.current = data;
 

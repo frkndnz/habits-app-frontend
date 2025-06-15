@@ -29,7 +29,7 @@ export const habitApi = baseApi.injectEndpoints({
                     message: response.message,
                 }
             },
-            invalidatesTags: ['Habits'],
+            invalidatesTags: ['Habits','HabitDetails','SummaryStats'],
         }),
         updateHabit: builder.mutation({
             query: (habit) => ({
@@ -66,7 +66,7 @@ export const habitApi = baseApi.injectEndpoints({
                 url: `habits/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['Habits'],
+            invalidatesTags: ['Habits','HabitDetails','SummaryStats'],
         }),
         transformResponse:(response)=>{
                 return{

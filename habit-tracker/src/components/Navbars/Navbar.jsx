@@ -21,9 +21,10 @@ const Navbar = () => {
         <div className="hidden sm:flex gap-6 items-center">
           <Link to="/" className="hover:underline font-medium">Home</Link>
           {isAuthenticated && (
-
+            
             <Link to="/dashboard" className="hover:underline font-medium">Dashboard</Link>
           )}
+          <Link to="/blog" className="hover:underline font-medium">Blog</Link>
             
           
         </div>
@@ -44,6 +45,7 @@ const Navbar = () => {
         <div className="flex flex-col gap-2 mt-3 sm:hidden">
           <Link to="/" className="hover:underline font-medium">Home</Link>
           <Link to="/dashboard" className="hover:underline font-medium">Dashboard</Link>
+          <Link to="/blog" className="hover:underline font-medium">Blog</Link>
         </div>
       )}
     </div>

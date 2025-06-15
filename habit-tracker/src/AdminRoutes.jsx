@@ -17,6 +17,8 @@ export const AdminRoutes = (
       <Route path="blogs"  >
         <Route index element={<BlogList/>}/>
         <Route path="create" element={<BlogCreate/>}/>
+        <Route path="edit/:id" element={<BlogCreate/>}/>
+
         </Route>
     </Route>
   </>
