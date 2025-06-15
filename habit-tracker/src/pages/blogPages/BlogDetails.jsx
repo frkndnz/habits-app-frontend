@@ -3,15 +3,17 @@ import { useGetBlogPostsQuery } from "@/features/blogs/blogApi";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
-
+import { useGetBlogPostByIdQuery } from "../../features/blogs/blogApi";
 
 const BlogDetails = () => {
+
+
   const { id } = useParams();
   const navigate = useNavigate();
+  const{data,error,isLoading}=useGetBlogPostByIdQuery(id);
+  
 
-  const { data, isLoading, error } = useGetBlogPostsQuery(); // varsayım: tüm postlar alınıyor
-
-  const blogPost = data?.value.find((p) => p.id === id);
+  const blogPost = data?.value;
 
   if (isLoading) return <p>Yükleniyor...</p>;
   if (error || !blogPost) return <p>Blog bulunamadı.</p>;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { useAddBlogPostMutation, useGetBlogPostsQuery ,useUpdateBlogPostMutation} from "../../../features/blogs/blogApi";
+import { useAddBlogPostMutation  ,useUpdateBlogPostMutation} from "../../../features/blogs/blogApi";
 
-
+import { useGetBlogPostByIdQuery } from "../../../features/blogs/blogApi";
 
 
 
@@ -12,8 +12,8 @@ export const BlogCreate = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEdit = Boolean(id);
-
-  const { data, error } = useGetBlogPostsQuery(undefined, { skip: !isEdit });
+  const{data,error}=useGetBlogPostByIdQuery(id,{skip:!isEdit});
+  
 
   const [imageUrl, setImageUrl] = useState(null);
 
@@ -37,7 +37,7 @@ export const BlogCreate = () => {
 
   useEffect(() => {
     if (isEdit && data?.value) {
-      const blogPost = data.value.find((p) => p.id === id);
+      const blogPost = data?.value;
       if (blogPost) {
         setFormData({
           title: blogPost.title,

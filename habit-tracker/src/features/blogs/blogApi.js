@@ -7,6 +7,12 @@ export const blogApi=baseApi.injectEndpoints({
             providesTags:['BlogPosts'],
 
         }),
+        getBlogPostById:builder.query({
+            query:(id)=>({
+                url:`blogs/${id}`,
+                method:'GET'
+            })
+        }),
         addBlogPost:builder.mutation({
             query:(blogPost)=>({
                 url:'blogs',
@@ -37,6 +43,7 @@ export const blogApi=baseApi.injectEndpoints({
 
 export const {useAddBlogPostMutation,
             useGetBlogPostsQuery,
+            useGetBlogPostByIdQuery,
             useDeleteBlogPostMutation,
             useUpdateBlogPostMutation
 }=blogApi;
