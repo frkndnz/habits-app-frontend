@@ -1,6 +1,6 @@
 import { baseApi } from "../baseApi";
 
-export const userApi = baseApi.injectEndpoints({
+export const usersApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getUsers: builder.query({
             query: ({ searchTerm = "", page = 1, pageSize = 10 }) => {
@@ -17,6 +17,11 @@ export const userApi = baseApi.injectEndpoints({
             },
             providesTags: ["Users"],
         }),
+        getUserProfile:builder.query({
+            query:()=>'users/profile',
+            providesTags: ['UserProfile'],
+            
+        }),
         updateUser:builder.mutation({
             query:(user)=>({
                 url:`/users/${user.id}`,
@@ -24,6 +29,14 @@ export const userApi = baseApi.injectEndpoints({
                 body:user,
             }),
             invalidatesTags:['Users']
+        }),
+        updateUserProfile:builder.mutation({
+            query:(user)=>({
+                url:`/users/profile/${user.id}`,
+                method:'PUT',
+                body:user,
+            }),
+            invalidatesTags:['UserProfile']
         })
     })
 
@@ -31,6 +44,9 @@ export const userApi = baseApi.injectEndpoints({
 
 export const {
     useGetUsersQuery,
-    useUpdateUserMutation
+    useGetUserProfileQuery,
+    useUpdateUserMutation,
+    useUpdateUserProfileMutation
+    
 
-} = userApi;
+} = usersApi;

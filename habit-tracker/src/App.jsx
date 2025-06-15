@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import RequireAuth from './components/RequireAuth';
 import { Blogs } from './pages/blogPages/Blogs';
 import BlogDetails from './pages/blogPages/BlogDetails';
+import { ProfilePage } from './pages/ProfilePage';
 
 function App() {
   
@@ -54,6 +55,7 @@ function App() {
             </RequireAuth> 
             }
             />
+          <Route path='user/profile'element={<ProfilePage/>} ></Route>
           <Route path='blog' element={<Blogs/>}></Route>
           <Route path='blog/:id' element={<BlogDetails/>}></Route>
         </Route>
