@@ -118,7 +118,7 @@ export default function Users() {
       <Pagination
         page={page}
         pageSize={pageSize}
-        totalCount={data?.value.totalCount ?? 0}
+        totalCount={data?.value?.totalCount ?? 0}
         onPageChange={(newPage) => setPage(newPage)}
       />
 

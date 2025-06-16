@@ -3,7 +3,17 @@ import { baseApi } from "../baseApi";
 export const blogApi=baseApi.injectEndpoints({
     endpoints:(builder)=>({
         getBlogPosts:builder.query({
-            query:()=> 'blogs',
+            query:({searchTerm="",page=1,pageSize=5})=> {
+              const params=new URLSearchParams({
+                searchTerm,
+                page:page.toString(),
+                pageSize:pageSize.toString()
+              }) ;
+              return {
+                    url: `/blogs?${params.toString()}`,
+                    method: "GET",
+                };
+            },
             providesTags:['BlogPosts'],
 
         }),

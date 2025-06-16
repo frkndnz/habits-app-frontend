@@ -1,67 +1,76 @@
-import { useState ,useEffect} from "react";
-import { useGetBlogPostsQuery,useDeleteBlogPostMutation } from "../../../features/blogs/blogApi";
+import { useState, useEffect } from "react";
+import { useGetBlogPostsQuery, useDeleteBlogPostMutation } from "../../../features/blogs/blogApi";
 import { Pencil, Trash } from "lucide-react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+import { Pagination } from "../../Pagination";
 
 
 export const BlogList = () => {
 
 
-    const navigate=useNavigate();
-    const { data, error, isLoading } = useGetBlogPostsQuery();
-    const [deleteBlogPost]=useDeleteBlogPostMutation();
+    const navigate = useNavigate();
+    const [deleteBlogPost] = useDeleteBlogPostMutation();
 
     const [rawSearchTerm, setRawSearchTerm] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [page, setPage] = useState(1);
     const pageSize = 5;
 
+
+    const { data, error, isLoading } = useGetBlogPostsQuery({
+        searchTerm,
+        page,
+        pageSize
+    });
+
     const handleEditClick = (postId) => {
-        
+
         navigate(`/admin/blogs/edit/${postId}`);
-        
-      }
-    
-     
-    
-      function handleDelete(id) {
+
+    }
+
+
+
+    function handleDelete(id) {
         if (confirm("Bu kullanıcıyı silmek istediğinize emin misiniz?")) {
             deleteBlogPost(id).unwrap();
         }
-      }
-      const handleSearchTermChange = (e) => {
+    }
+    const handleSearchTermChange = (e) => {
         setRawSearchTerm(e.target.value);
         setPage(1);
-      }
-      useEffect(()=>{
-        const handler=setTimeout(() => {
-          setSearchTerm(rawSearchTerm);
+    }
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setSearchTerm(rawSearchTerm);
         }, 500);
-    
-        return()=> clearTimeout(handler);
-      },[rawSearchTerm])
+
+        return () => clearTimeout(handler);
+    }, [rawSearchTerm])
 
 
     return (
+        <>
+        
         <div className="p-8">
             <div className="flex justify-between mb-4">
                 <h2 className="text-xl font-semibold ">Blogs</h2>
                 <div className="flex gap-6">
-                <button className=" rounded-lg bg-blue-400 p-2 text-white"
-                        onClick={()=>navigate("/admin/blogs/create")}>
-                    Add Post
-                </button>
-                <input
-                    className="rounded-xl p-1 text-center  border-2 border-blue-300  focus:border-blue-500 focus:ring-blue-500 bg-white text-gray-900"
-                    type="text"
-                    placeholder="Search"
-                    maxLength={20}
-                    value={rawSearchTerm}
-                    onChange={handleSearchTermChange}
-                    
+                    <button className=" rounded-lg bg-blue-400 p-2 text-white"
+                        onClick={() => navigate("/admin/blogs/create")}>
+                        Add Post
+                    </button>
+                    <input
+                        className="rounded-xl p-1 text-center  border-2 border-blue-300  focus:border-blue-500 focus:ring-blue-500 bg-white text-gray-900"
+                        type="text"
+                        placeholder="Search"
+                        maxLength={20}
+                        value={rawSearchTerm}
+                        onChange={handleSearchTermChange}
+
                     ></input>
-                    </div>
+                </div>
             </div>
             <div className="overflow-x-auto">
                 <table className="w-full  text-sm">
@@ -74,7 +83,7 @@ export const BlogList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data?.value?.map((post, index) => (
+                        {data?.value?.blogPosts.map((post, index) => (
                             <tr key={post.id} className="border-b hover:bg-gray-50">
                                 <td className="p-2">{index + 1}</td>
                                 <td className="p-2">{post.title}</td>
@@ -105,5 +114,12 @@ export const BlogList = () => {
                 </table>
             </div>
         </div>
+          <Pagination
+                page={page}
+                pageSize={pageSize}
+                totalCount={data?.value?.totalCount ?? 0}
+                onPageChange={(newPage) => setPage(newPage)}
+              />
+        </>
     )
 };

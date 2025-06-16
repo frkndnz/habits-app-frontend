@@ -31,8 +31,8 @@ const BlogDetails = () => {
         <h1 className="text-4xl font-bold">{blogPost.title}</h1>
 
         <div className="text-sm text-gray-500 flex gap-4">
-          <span>✍️ {blogPost.authorName || "Yazar Bilgisi Yok"}</span>
-          <span>📅 {new Date(blogPost.createdAt).toLocaleDateString("tr-TR", {
+          <span>✍️ {blogPost.creatorName || "Yazar Bilgisi Yok"}</span>
+          <span>📅 {new Date(blogPost.createdAt).toLocaleDateString( {
             year: "numeric",
             month: "long",
             day: "numeric",
