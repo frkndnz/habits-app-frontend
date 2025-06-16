@@ -2,6 +2,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import API from '../../api/axios';
 import { handleJwt } from '../../utils/handleJwt';
+import { addGoogleLoginReducers } from './googleAuthThunks';
 
 
 export const loginUser = createAsyncThunk(
@@ -113,7 +114,8 @@ const authSlice = createSlice({
             .addCase(registerUser.rejected, (state,action) => {
                 state.isLoading = false;
                 state.errorMessages = action.payload.errorMessages || ["Bir hata oluştu"];
-            });
+            })
+            addGoogleLoginReducers(builder);
     },
 });
 

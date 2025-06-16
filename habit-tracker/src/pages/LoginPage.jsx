@@ -1,17 +1,46 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { GoogleLogin } from "@react-oauth/google";
+import { googleLogin } from "../features/auth/googleAuthThunks";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isLoading, errorMessages, message } = useSelector((state) => state.auth);
+    const { isLoading, errorMessages, message ,isAuthenticated} = useSelector((state) => state.auth);
+
+    useEffect(()=>{
+        if(isAuthenticated){
+            navigate('/');
+        }
+    },[isAuthenticated]);
+
 
     const [formData, setFormData] = useState({
         emailOrUserName: "",
         password: ""
     });
+
+
+    const handleLoginGoogleSuccess=async(credentialResponse)=>{
+        console.log("google login success",credentialResponse);
+
+        const idToken=credentialResponse.credential;
+        if(!idToken){
+
+            console.error('Google ID token not taken!');
+            return;
+        }
+        dispatch(googleLogin(idToken));
+        
+    }
+    const handleGoogleError=()=>{
+        console.log("Google login unsuccesful ")
+        alert("Google login unsuccesful please try again");
+    }
+
+
 
     const handleChange = (e) => {
         setFormData({
@@ -100,6 +129,13 @@ const LoginPage = () => {
                     </a>
                 </p>
             </form>
+            <GoogleLogin
+                onSuccess={handleLoginGoogleSuccess}
+                onError={handleGoogleError}
+                text="signin_with"
+                theme="filled_blue"
+                size="large"
+            />
         </div>
 
 
