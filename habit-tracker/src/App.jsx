@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserFromToken } from './features/auth/authSlice';
 import { logout } from './features/auth/authSlice';
@@ -21,8 +21,9 @@ import { ProfilePage } from './pages/ProfilePage';
 
 function App() {
   
-  const isAuthChecked=useSelector((state) => state.auth.isAuthChecked);
+  const {isAuthChecked,isAuthenticated}=useSelector((state) => state.auth);
 
+  const navigate=useNavigate();
   const dispatch = useDispatch();
   useEffect(()=>{
     const token = localStorage.getItem('token');
@@ -39,13 +40,19 @@ function App() {
     
   },[]);
 
+  useEffect(()=>{
+    if(isAuthChecked &&!isAuthenticated && window.location.pathname!=='/'){
+      navigate('/');
+    }
+  },[isAuthenticated])
+
   if(!isAuthChecked){
     console.log("isAuthChecked false");
     return <div className="flex items-center justify-center h-screen bg-gray-100">Loading...</div>;
   }
 
   return (
-    <Router>
+    
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
@@ -70,7 +77,7 @@ function App() {
         {AdminRoutes}
         
       </Routes>
-    </Router>
+   
   )
 }
 

@@ -13,12 +13,11 @@ export const CompletionPieChart = () => {
 
     const habits = data?.value;
 
-    if(habits==null)
-        return(<div>error</div>)
+   
 
 
-    const completedCount = habits.filter(h => h.isCompletedToday).length;
-    const incompletedCount = habits.length - completedCount;
+    const completedCount =habits ? habits?.filter(h => h.isCompletedToday).length :0;
+    const incompletedCount = habits ? habits?.length - completedCount:0;
     const chartData = [
         { name: 'Tamamlanan', value: completedCount },
         { name: 'Eksik kalan', value: incompletedCount }
