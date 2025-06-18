@@ -5,10 +5,13 @@ import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { useUpdateUserMutation } from "../../../features/users/usersApi"
 import { parseFieldErrors } from "../../../utils/parseFieldErrors"
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select"
 
 
-
-
+const roleData=[
+    {name:"Admin",value:"Admin"},
+    {name:"User",value:"User"}    
+]
 
 export const UserEditModal = ({ isOpen, OnClose, user }) => {
 
@@ -20,6 +23,7 @@ export const UserEditModal = ({ isOpen, OnClose, user }) => {
         firstName: user ? user.firstName : "",
         lastName: user ? user.lastName : "",
         email: user ? user.email : "",
+        roleName:user ? user.roleName:"",
     });
 
     const [updateUser] = useUpdateUserMutation();
@@ -62,7 +66,7 @@ export const UserEditModal = ({ isOpen, OnClose, user }) => {
                 <form type="submit" onSubmit={handleSubmit}>
                     <div className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="userName" className="text-sm font-medium text-white">UserName</Label>
+                            <Label htmlFor="userName" className="text-sm font-medium text-dark">UserName</Label>
                             <Input
                                 id="userName"
                                 value={formData.userName}
@@ -79,7 +83,7 @@ export const UserEditModal = ({ isOpen, OnClose, user }) => {
                             )}
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="firstName" className="text-sm font-medium text-white">FirstName</Label>
+                            <Label htmlFor="firstName" className="text-sm font-medium text-dark">FirstName</Label>
                             <Input
                                 id="firstName"
                                 value={formData.firstName}
@@ -91,12 +95,12 @@ export const UserEditModal = ({ isOpen, OnClose, user }) => {
                                 maxLength={40} // Limit name length to 50 characters
 
                             />
-                             {fieldErrors["firstName"] && (
+                            {fieldErrors["firstName"] && (
                                 <p className="mt-1 text-sm text-red-500">{fieldErrors["firstName"]}</p>
                             )}
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="lastName" className="text-sm font-medium text-white">lastName</Label>
+                            <Label htmlFor="lastName" className="text-sm font-medium text-dark">lastName</Label>
                             <Input
                                 id="lastName"
                                 value={formData.lastName}
@@ -108,12 +112,12 @@ export const UserEditModal = ({ isOpen, OnClose, user }) => {
                                 maxLength={40} // Limit name length to 50 characters
 
                             />
-                             {fieldErrors["lastName"] && (
+                            {fieldErrors["lastName"] && (
                                 <p className="mt-1 text-sm text-red-500">{fieldErrors["lastName"]}</p>
                             )}
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="email" className="text-sm font-medium text-white">Email</Label>
+                            <Label htmlFor="email" className="text-sm font-medium text-dark">Email</Label>
                             <Input
                                 id="email"
                                 value={formData.email}
@@ -126,9 +130,24 @@ export const UserEditModal = ({ isOpen, OnClose, user }) => {
                                 maxLength={60} // Limit name length to 50 characters
 
                             />
-                             {fieldErrors["email"] && (
+                            {fieldErrors["email"] && (
                                 <p className="mt-1 text-sm text-red-500">{fieldErrors["email"]}</p>
                             )}
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="roleName" className="text-sm font-medium text-dark">Role</Label>
+                            <Select value={formData.roleName} onValueChange={(value) => setFormData(prev => ({ ...prev, roleName: value }))}>
+                                <SelectTrigger className="!bg-white !text-gray-500">
+                                    <SelectValue placeholder="Bir kategori seçin"></SelectValue>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {roleData.map((role,index) => (
+                                        <SelectItem key={index} value={role.value}>
+                                            {role.value}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
                         <DialogFooter>
                             <DialogClose asChild>

@@ -79,6 +79,7 @@ export default function Users() {
                 <th className="p-2">UserName</th>
                 <th className="p-2">İsim</th>
                 <th className="p-2">Email</th>
+                <th className="p-2">Roles</th>
                 <th className="p-2">İşlemler</th>
               </tr>
             </thead>
@@ -89,6 +90,7 @@ export default function Users() {
                   <td className="p-2">{user.userName}</td>
                   <td className="p-2">{user.firstName} {user.lastName}</td>
                   <td className="p-2">{user.email}</td>
+                  <td className="p-2">{user.roleName}</td>
                   <td className="p-2 flex justify-center gap-4">
                     <button className="text-blue-600 hover:underline cursor-pointer"
                       onClick={() => handleEditClick(user.id)}
