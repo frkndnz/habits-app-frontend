@@ -18,54 +18,50 @@ import { ProfilePage } from './pages/ProfilePage';
 import { authInfo } from './features/auth/authInfoThunks';
 
 function App() {
-  
-  const {isAuthChecked,isAuthenticated}=useSelector((state) => state.auth);
 
-  const navigate=useNavigate();
+  const { isAuthChecked, isAuthenticated } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(authInfo());
 
-  },[dispatch]);
+  }, [dispatch]);
 
-  useEffect(()=>{
-    if(isAuthChecked &&!isAuthenticated && window.location.pathname!=='/'){
+  useEffect(() => {
+    if (isAuthChecked && !isAuthenticated && window.location.pathname !== '/') {
       navigate('/');
     }
-  },[isAuthenticated])
+  }, [isAuthenticated])
 
-  if(!isAuthChecked){
+  if (!isAuthChecked) {
     console.log("isAuthChecked false");
     return <div className="flex items-center justify-center h-screen bg-gray-100">Loading...</div>;
   }
 
   return (
-    
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path="dashboard" element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth> 
-            }
-            />
-          <Route path='user/profile'element={<ProfilePage/>} ></Route>
-          <Route path='blog' element={<Blogs/>}></Route>
-          <Route path='blog/:id' element={<BlogDetails/>}></Route>
+
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+
+        <Route element={<RequireAuth />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path='user/profile' element={<ProfilePage />} ></Route>
+
         </Route>
+        <Route path='blog' element={<Blogs />}></Route>
+        <Route path='blog/:id' element={<BlogDetails />}></Route>
+      </Route>
 
-        
+      <Route path='/auth/login' element={<LoginPage />}></Route>
+      <Route path='/auth/register' element={<RegisterPage />}></Route>
+      <Route path='/auth/confirm-email' element={<ConfirmEmailPage />}></Route>
 
+      {AdminRoutes}
 
-        <Route path='/auth/login' element={<LoginPage/>}></Route>
-        <Route path='/auth/register' element={<RegisterPage/>}></Route> 
-        <Route path='/auth/confirm-email' element={<ConfirmEmailPage/>}></Route>
+    </Routes>
 
-        {AdminRoutes}
-        
-      </Routes>
-   
   )
 }
 

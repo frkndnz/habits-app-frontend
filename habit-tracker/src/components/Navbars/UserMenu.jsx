@@ -59,7 +59,7 @@ const UserMenu = () => {
                         {user && isAuthenticated ? (
                             <>
                                 <li className="px-4 py-2 hover:bg-blue-50 hover:text-blue-600 cursor-pointer" ><Link className="block w-full " to="/user/profile">Profile</Link></li>
-                                <li className="px-4 py-2 hover:bg-blue-50 hover:text-blue-600 cursor-pointer"><Link className="block w-full " to="/settings">Settings</Link></li>
+                                {user && user.user_role==="Admin" &&(<li className="px-4 py-2 hover:bg-blue-50 hover:text-blue-600 cursor-pointer"><Link className="block w-full " to="/admin">Admin Panel</Link></li>)}
                                 <li className="px-4 py-2 text-red-600 hover:bg-red-100 hover:text-red-800 cursor-pointer" onClick={handleLogout}>Logout</li>
                             </>
                         ) : (
