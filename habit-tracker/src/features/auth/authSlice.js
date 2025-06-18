@@ -1,9 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import axios from 'axios';
 import API from '../../api/axios';
-import { handleJwt } from '../../utils/handleJwt';
 import { addGoogleLoginReducers } from './googleAuthThunks';
-
+import { addAuthInfoReducers } from './authInfoThunks';
 
 export const loginUser = createAsyncThunk(
     'auth/loginUser',
@@ -46,12 +44,9 @@ export const registerUser = createAsyncThunk(
     }
 );
 
-const token=localStorage.getItem('token');
-
 
 const initialState = {
     user:null,
-    token: token ? token : null,
     isLoading: false,
     isAuthenticated: false, 
     isAuthChecked: false,
@@ -68,16 +63,8 @@ const authSlice = createSlice({
             state.message = null;
             state.errorMessages = null;
             state.isAuthenticated= false; 
-            state.token = null;
             state.isAuthChecked = true;
-            localStorage.removeItem('token');
         },
-        setUserFromToken: (state,action) => {
-            state.user=handleJwt(action.payload); 
-            state.isAuthenticated = true;
-            state.isAuthChecked = true;
-            console.log("setUserFromToken",state.user); 
-        }
     },
     extraReducers: (builder) => {
         builder
@@ -89,18 +76,22 @@ const authSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.token = action.payload.value.accessToken;
                 state.message = action.payload.message;
                 state.errorMessages = null;
                 state.isAuthenticated = true; 
-                localStorage.setItem('token', action.payload.value.accessToken);
-                state.user=handleJwt(action.payload.value.accessToken);
+                
+                state.user={
+                    user_name:action.payload.value.userName,
+                    user_role:action.payload.value.userRole
+                };
             })
             .addCase(loginUser.rejected, (state,action) => {
                 state.isLoading = false;
-              //  state.message = action.payload.message || "Bir hata oluştu";
-                state.errorMessages = action.payload.errorMessages || ["Bir hata oluştu"];
+                state.errorMessages = action.payload?.errorMessages || ["Bir hata oluştu"];
             })
+
+
+
             .addCase(registerUser.pending, (state) => {
                 state.isLoading = true;
                 state.errorMessages = null;
@@ -116,8 +107,9 @@ const authSlice = createSlice({
                 state.errorMessages = action.payload.errorMessages || ["Bir hata oluştu"];
             })
             addGoogleLoginReducers(builder);
+            addAuthInfoReducers(builder);
     },
 });
 
-export const { logout,setUserFromToken } = authSlice.actions;
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;

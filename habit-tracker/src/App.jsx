@@ -2,8 +2,6 @@ import React from 'react'
 
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserFromToken } from './features/auth/authSlice';
-import { logout } from './features/auth/authSlice';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
@@ -11,13 +9,13 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ConfirmEmailPage from './pages/ConfirmEmailPage';
 import { AdminRoutes } from './AdminRoutes';
-import { isTokenExpired } from './utils/handleJwt';
 import './App.css'
 import { useEffect } from 'react';
 import RequireAuth from './components/RequireAuth';
 import { Blogs } from './pages/blogPages/Blogs';
 import BlogDetails from './pages/blogPages/BlogDetails';
 import { ProfilePage } from './pages/ProfilePage';
+import { authInfo } from './features/auth/authInfoThunks';
 
 function App() {
   
@@ -26,19 +24,9 @@ function App() {
   const navigate=useNavigate();
   const dispatch = useDispatch();
   useEffect(()=>{
-    const token = localStorage.getItem('token');
-    if (token && !isTokenExpired(token)) {
-      dispatch(setUserFromToken(token));
-    }
-    else if (token && isTokenExpired(token)) {
-      localStorage.removeItem('token');
-      dispatch(logout());
-    }
-    else {
-      dispatch(logout());
-    }
-    
-  },[]);
+    dispatch(authInfo());
+
+  },[dispatch]);
 
   useEffect(()=>{
     if(isAuthChecked &&!isAuthenticated && window.location.pathname!=='/'){
