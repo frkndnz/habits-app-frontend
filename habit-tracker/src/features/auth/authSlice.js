@@ -44,6 +44,20 @@ export const registerUser = createAsyncThunk(
     }
 );
 
+export const logoutUser=createAsyncThunk(
+    'auth/logoutUser',
+    async (_,thunkAPI)=>{
+        try {
+           const response= await API.post('auth/logout');
+            return  response.data;
+            
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+
+)
+
 
 const initialState = {
     user:null,
@@ -58,13 +72,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logout: (state) => {
-            state.user = null;
-            state.message = null;
-            state.errorMessages = null;
-            state.isAuthenticated= false; 
-            state.isAuthChecked = true;
-        },
+       
     },
     extraReducers: (builder) => {
         builder
@@ -106,10 +114,18 @@ const authSlice = createSlice({
                 state.isLoading = false;
                 state.errorMessages = action.payload.errorMessages || ["Bir hata oluştu"];
             })
+            .addCase(logoutUser.fulfilled,(state)=>{
+                state.user = null;
+                state.message = null;
+                state.errorMessages = null;
+                state.isAuthenticated= false; 
+                state.isAuthChecked = true;
+            } )
+
             addGoogleLoginReducers(builder);
             addAuthInfoReducers(builder);
     },
 });
 
-export const { logout } = authSlice.actions;
+
 export default authSlice.reducer;

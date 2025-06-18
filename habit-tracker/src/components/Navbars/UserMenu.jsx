@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/auth/authSlice";
+import { logoutUser } from "../../features/auth/authSlice";
 import { Link, useLocation } from "react-router-dom";
 import { User } from "lucide-react";
 const UserMenu = () => {
@@ -31,9 +31,15 @@ const UserMenu = () => {
 
 
 
-    const handleLogout = () => {
+    const handleLogout =async () => {
         setOpen(false);
-        dispatch(logout());
+        try {
+            await dispatch(logoutUser()).unwrap();
+            
+        } catch (error) {
+            console.error("Logout failed!",error);
+        }
+       
     }
 
     return (

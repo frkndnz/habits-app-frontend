@@ -62,7 +62,7 @@ const LoginPage = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
-            <div className="w-full justify-items-center">
+            <div className="w-full justify-items-center ">
 
                 <form
                     onSubmit={handleSubmit}
@@ -131,15 +131,20 @@ const LoginPage = () => {
                         </a>
                     </p>
                 </form>
-                <div className="w-full  max-w-md mt-4  ">
+                <div className="w-full  max-w-md mt-4  justify-items-center  ">
 
                     <GoogleLogin
                         onSuccess={handleLoginGoogleSuccess}
                         onError={handleGoogleError}
-                        text="signin_with"
+                        text="continue_with"
                         theme="filled_blue"
                         size="large"
                         shape="pill"
+                        width={250}
+                        useOneTap={false}
+                        auto_select={false}
+                        disabled={false}
+                        
                     />
                 </div>
             </div>

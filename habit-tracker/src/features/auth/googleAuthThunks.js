@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import API from "../../api/axios";
-import { handleJwt } from "../../utils/handleJwt";
+
 
 
 export const googleLogin = createAsyncThunk(
@@ -42,16 +42,17 @@ export const addGoogleLoginReducers = (builder) => {
         })
         .addCase(googleLogin.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.token = action.payload.value.accessToken;
             state.message = action.payload.message;
             state.errorMessages = null;
             state.isAuthenticated = true;
-            localStorage.setItem('token', action.payload.value.accessToken);
-            state.user = handleJwt(action.payload.value.accessToken);
+            state.user={
+                    user_name:action.payload.value.userName,
+                    user_role:action.payload.value.userRole
+                };
         })
         .addCase(googleLogin.rejected, (state, action) => {
             state.isLoading = false;
             //  state.message = action.payload.message || "Bir hata oluştu";
-            state.errorMessages = action.payload.errorMessages || ["Bir hata oluştu"];
+            state.errorMessages = action.payload?.errorMessages || ["Bir hata oluştu"];
         });
 };
