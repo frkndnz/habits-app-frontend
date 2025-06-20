@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../features/auth/authSlice";
 import { Link, useLocation } from "react-router-dom";
 import { User } from "lucide-react";
+
+
 const UserMenu = () => {
     const [isOpen, setOpen] = useState(false);
     const dispatch = useDispatch();

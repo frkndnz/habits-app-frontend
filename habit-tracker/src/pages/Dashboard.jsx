@@ -3,6 +3,8 @@ import Header from "../components/dashboard/Header";
 import HabitList from "../components/dashboard/HabitList";
 import { JarSection } from "../components/dashboard/JarSection";
 import { SummaryStats } from "../components/dashboard/StatsTab/SummaryStats";
+
+
 import { HabitDetailStatsList } from "../components/dashboard/statsTab/HabitDetailStatsList";
 import { CompletionPieChart } from "../components/dashboard/statsTab/CompletionPieChart";
 import { Tabs,

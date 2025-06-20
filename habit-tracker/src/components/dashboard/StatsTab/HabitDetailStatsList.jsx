@@ -5,8 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
-import { useRef } from "react";
-export const HabitDetailStatsList = () => {
+
+export  const HabitDetailStatsList = () => {
 
     const { data, isLoading, isError } = useGetHabitDetailsQuery();
 
