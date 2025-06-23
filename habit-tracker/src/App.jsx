@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home'
-import Dashboard from './pages/Dashboard'
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ConfirmEmailPage from './pages/ConfirmEmailPage';
@@ -16,6 +15,7 @@ import { Blogs } from './pages/blogPages/Blogs';
 import BlogDetails from './pages/blogPages/BlogDetails';
 import { ProfilePage } from './pages/ProfilePage';
 import { authInfo } from './features/auth/authInfoThunks';
+import {PulseLoader} from 'react-spinners';
 
 function App() {
 
@@ -36,7 +36,18 @@ function App() {
 
   if (!isAuthChecked) {
     console.log("isAuthChecked false");
-    return <div className="flex items-center justify-center h-screen bg-gray-100">Loading...</div>;
+    return( 
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className='sweet-loading'>
+        <PulseLoader
+          color={'#36cba7'}
+          loading={true}
+          size={50}
+          aria-label='Loading Spinner'
+          data-testid="loader"
+        />
+      </div>
+    </div>);
   }
 
   return (
@@ -46,7 +57,6 @@ function App() {
         <Route index element={<Home />} />
 
         <Route element={<RequireAuth />}>
-          <Route path="dashboard" element={<Dashboard />} />
           <Route path='user/profile' element={<ProfilePage />} ></Route>
 
         </Route>

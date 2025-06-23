@@ -23,11 +23,11 @@ const Dashboard = () => {
                         <TabsList className="w-1/2 mx-auto  flex justify-center gap-2 mb-4 mt-4  bg-gray-900">
                             
                             <TabsTrigger value="habits" 
-                            className="w-fit px-4 py-2 text-sm font-medium rounded-md  text-white data-[state=active]:bg-teal-500 data-[state=active]:text-black transition">
+                            className="w-fit px-4 py-2 text-lg font-bold rounded-md  text-white data-[state=active]:bg-teal-500 data-[state=active]:text-black transition">
                                 Habits
                             </TabsTrigger>
                             <TabsTrigger value="stats" 
-                            className="w-fit px-4 py-2 text-sm font-medium rounded-md  text-white data-[state=active]:bg-teal-500 data-[state=active]:text-black transition">
+                            className="w-fit px-4 py-2 text-lg font-bold rounded-md  text-white data-[state=active]:bg-teal-500 data-[state=active]:text-black transition">
                                 Stats
                             </TabsTrigger>
 

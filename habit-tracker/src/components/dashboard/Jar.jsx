@@ -7,9 +7,13 @@ const Jar = ({ habits, title }) => {
   green: "from-green-500 to-white-500",
   red: "from-red-500 to-white-600",
 };
+   
+    
     const color=title === "Complete" ? "green" :"red"; // Yeşil tamamlananlar için, mavi tamamlanmayanlar için
     return (
-        <div className="relative w-36 sm:w-64 h-36 sm:h-64 mx-auto flex flex-col items-center justify-end overflow-hidden mt-4">
+        <>
+        
+        <div className="relative w-36 sm:w-80 h-36 sm:h-80 mx-auto flex flex-col items-center justify-end overflow-hidden mt-4">
             {/* Kavanozun Boynu (üst kısım) */}
             <div className="absolute top-0 w-25 sm:w-40 h-4 sm:h-8 bg-gray-300 rounded-b-xl rounded-t-lg z-20"></div>
 
@@ -75,8 +79,12 @@ const Jar = ({ habits, title }) => {
             </div>
 
             {/* Kavanozun Alt Gölgesi */}
-            <div className="absolute -bottom-2  w-24 sm:w-48  h-8 bg-gray-400 rounded-full blur-md opacity-50"></div>
+            <div className="absolute -bottom-2  w-24 sm:w-48  h-8 bg-gray-400 rounded-full blur-md opacity-50">
+
+            </div>
+          
         </div>
+        </>
     );
 };
 

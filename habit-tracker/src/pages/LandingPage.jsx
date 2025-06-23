@@ -2,11 +2,36 @@ import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import { Target, CalendarCheck, Activity, Star, Clock ,Rocket} from "lucide-react";
+import { Target, CheckCircle, Smartphone, Activity, Star, Clock, Rocket } from "lucide-react";
 import Lottie from "lottie-react";
 import habitAnimation from "../assets/lottie/habit.json";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import { HowItWorks } from "../components/landing/HowItWorks";
+import { Testimonials } from "../components/landing/Testimonials";
+import { ScreenShots } from "../components/landing/ScreenShots";
 
 export default function LandingPage() {
+  const appScreens = {
+    dashboard: {
+      title: "Dashboard",
+      description: "Tüm alışkanlıklarınızı tek ekranda görün",
+      features: ["Günlük özet", "Streak takibi", "Hızlı check-in"]
+    },
+    analytics: {
+      title: "Analitik",
+      description: "Detaylı istatistikler ve trend analizleri",
+      features: ["Grafik raporlar", "Aylık özetler", "Karşılaştırmalı analiz"]
+    },
+    habits: {
+      title: "Alışkanlıklar",
+      description: "Alışkanlıklarınızı yönetin ve düzenleyin",
+      features: ["CRUD işlemleri", "Kategori yönetimi", "Öncelik belirleme"]
+    }
+  };
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const navigate = useNavigate();
   const featureList = [
     {
       title: 'Smart Tracking',
@@ -42,13 +67,15 @@ export default function LandingPage() {
       >
         {/* Text Section */}
         <div className="w-full lg:w-1/2">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-teal-400 mb-4">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-teal-400 mb-4 ">
             Build Habits That Stick
           </h1>
           <p className="text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">
             Stay consistent with our modern habit tracker app, designed for growth and momentum.
           </p>
-          <button className="mt-6 px-6 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition shadow-lg">
+          <button
+            onClick={() => navigate("/auth/register")}
+            className="mt-6 px-6 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition shadow-lg">
             Get Started
           </button>
         </div>
@@ -63,7 +90,8 @@ export default function LandingPage() {
         </div>
       </motion.section>
 
-
+      <HowItWorks/>
+      <ScreenShots/>
       {/* Features Section */}
       <motion.section
         initial={{ opacity: 0 }}
@@ -89,11 +117,14 @@ export default function LandingPage() {
             <SwiperSlide key={index}>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="bg-gray-800 p-6 rounded-xl shadow-md text-center h-full flex flex-col justify-center border border-gray-700"
+                className="bg-gray-800 p-6 rounded-xl shadow-md text-center h-64 flex flex-col justify-center border border-gray-700"
               >
-                <feature.icon className="mx-auto mb-3 text-teal-400 " size={36} ></feature.icon>
+                <div className="mx-auto inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-teal-500 to-blue-500 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                <feature.icon className="w-8 h-8" size={36} ></feature.icon>
+                 
+                </div>
                 <h3 className="text-xl font-semibold text-teal-400 mb-2">{feature.title}</h3>
-                <p className="text-gray-400">
+                <p className="text-gray-200">
                   {feature.descripion}
                 </p>
               </motion.div>
@@ -101,6 +132,10 @@ export default function LandingPage() {
           ))}
         </Swiper>
       </motion.section>
+
+
+      <Testimonials/>
+      
 
       {/* CTA Section */}
       <motion.section
@@ -116,7 +151,7 @@ export default function LandingPage() {
         <p className="text-gray-400 mb-6 max-w-xl mx-auto">
           Join thousands building better habits with our easy-to-use tracker. It’s free, forever.
         </p>
-        <button className="px-6 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition duration-300 transform hover:scale-105 shadow-md">
+        <button onClick={() => navigate("/auth/register")} className="px-6 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition duration-300 transform hover:scale-105 shadow-md">
           Sign Up Free
         </button>
       </motion.section>

@@ -68,7 +68,7 @@ dataRef.current = data;
 
     return (
         <>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4   rounded-b-xl bg-gray-800   ">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 p-8   rounded-b-xl bg-gray-800   ">
 
                 {data?.value && data.value.map((habit) => {
                     return (

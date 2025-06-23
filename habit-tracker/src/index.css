@@ -1,7 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme {
+  --font-inter: 'Inter', 'sans-serif';
+  --font-roboto:'Roboto,'sans-serif'';
+}
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
