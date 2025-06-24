@@ -16,6 +16,9 @@ import BlogDetails from './pages/blogPages/BlogDetails';
 import { ProfilePage } from './pages/ProfilePage';
 import { authInfo } from './features/auth/authInfoThunks';
 import {PulseLoader} from 'react-spinners';
+import Dashboard from './pages/Dashboard';
+import { HabitDetailPage } from './pages/habitPages/HabitDetailPage';
+
 
 function App() {
 
@@ -55,10 +58,13 @@ function App() {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
-
+        
         <Route element={<RequireAuth />}>
           <Route path='user/profile' element={<ProfilePage />} ></Route>
-
+          <Route path='dashboard' element={<Dashboard/>}>
+            <Route path='habits/:habitId' element={<HabitDetailPage/>}></Route>
+          </Route>
+          
         </Route>
         <Route path='blog' element={<Blogs />}></Route>
         <Route path='blog/:id' element={<BlogDetails />}></Route>

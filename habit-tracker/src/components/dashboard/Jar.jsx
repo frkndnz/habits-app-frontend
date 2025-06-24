@@ -13,7 +13,7 @@ const Jar = ({ habits, title }) => {
     return (
         <>
         
-        <div className="relative w-36 sm:w-80 h-36 sm:h-80 mx-auto flex flex-col items-center justify-end overflow-hidden mt-4">
+        <div className="relative w-36 sm:w-64 h-36 sm:h-64 mx-auto flex flex-col items-center justify-end overflow-hidden ">
             {/* Kavanozun Boynu (üst kısım) */}
             <div className="absolute top-0 w-25 sm:w-40 h-4 sm:h-8 bg-gray-300 rounded-b-xl rounded-t-lg z-20"></div>
 
@@ -65,7 +65,7 @@ const Jar = ({ habits, title }) => {
                                         ease: "easeInOut"
                                     }
                                 }}
-                                className="w-8 sm:w-12 h-8 sm:h-12 rounded-full text-white flex items-center justify-center text-sm font-semibold"
+                                className="w-6 sm:w-9 h-6 sm:h-9 rounded-full text-white flex items-center justify-center text-sm font-semibold"
                                 style={{ 
                                     backgroundColor: habit.color || '#3b82f6',
                                     boxShadow: `0 4px 12px ${habit.color || '#3b82f6'}40, inset 0 1px 2px rgba(255,255,255,0.3)`

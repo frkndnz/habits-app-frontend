@@ -31,6 +31,12 @@ export const habitApi = baseApi.injectEndpoints({
             },
             invalidatesTags: ['Habits','HabitDetails','SummaryStats'],
         }),
+        getHabitById:builder.query({
+            query:(id)=>({
+                url:`habits/${id}`,
+                method:'GET',
+            })
+        }),
         updateHabit: builder.mutation({
             query: (habit) => ({
                 url: `habits/${habit.id}`,
@@ -84,4 +90,5 @@ export const {
     useAddHabitMutation,
     useUpdateHabitMutation,
     useDeleteHabitMutation,
+    useGetHabitByIdQuery,
 } = habitApi;

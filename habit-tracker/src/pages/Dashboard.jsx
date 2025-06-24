@@ -3,8 +3,6 @@ import Header from "../components/dashboard/Header";
 import HabitList from "../components/dashboard/HabitList";
 import { JarSection } from "../components/dashboard/JarSection";
 import { SummaryStats } from "../components/dashboard/StatsTab/SummaryStats";
-
-
 import { HabitDetailStatsList } from "../components/dashboard/statsTab/HabitDetailStatsList";
 import { CompletionPieChart } from "../components/dashboard/statsTab/CompletionPieChart";
 import { Tabs,
@@ -12,13 +10,22 @@ import { Tabs,
   TabsTrigger,
   TabsContent,} from "@/components/ui/tabs"
 import CategorySuccessChart from "../components/dashboard/statsTab/CategorySuccessChart";
+import { Outlet ,useLocation} from "react-router-dom";
 
 const Dashboard = () => {
+
+    const location=useLocation();
+
+    const isHabitDetailPage=location.pathname.includes('/dashboard/habits/');
+    console.log(isHabitDetailPage);
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-800 to-teal-600 p-4 md:p-4 rounded-lg ">
             <div className="max-w-7xl mx-auto ">
                 <div className=" backdrop-blur-sm rounded-xl  ">
+                    {!isHabitDetailPage &&(
 
+                   
                     <Tabs defaultValue="habits" className="w-full  rounded-t-xl   ">
                         <TabsList className="w-1/2 mx-auto  flex justify-center gap-2 mb-4 mt-4  bg-gray-900">
                             
@@ -47,6 +54,8 @@ const Dashboard = () => {
                             <HabitDetailStatsList/>
                         </TabsContent>
                     </Tabs>
+                     )}
+                    <Outlet/>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import Navbar from "../components/Navbars/Navbar";
 import { Footer } from "../components/footerSection/Footer";
-
+import BackToTopButton from "../components/BackToTopButton";
 const MainLayout = () => {
 
 
@@ -15,6 +15,7 @@ const MainLayout = () => {
                 <Outlet />
             </main>
             <Footer />
+            <BackToTopButton/>
         </div>
     );
 };

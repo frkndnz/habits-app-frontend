@@ -30,23 +30,23 @@ export const habitLogApi = baseApi.injectEndpoints({
                     message: response.message,
                 };
             },
-            invalidatesTags: ["SummaryStats","HabitDetails"],
-            async onQueryStarted(habitLog, { dispatch, queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled;
-                    if (data.isSuccess) {
-                        dispatch(habitApi.util.updateQueryData('getHabits', undefined, (draft) => {
-                            const index = draft.value.findIndex(h => h.id === habitLog.habitId);
-                            if (index !== -1) {
-                                draft.value[index].isCompletedToday = true;
-                            }
-                        }));
+            invalidatesTags: ["SummaryStats","HabitDetails","Habits"],
+            // async onQueryStarted(habitLog, { dispatch, queryFulfilled }) {
+            //     try {
+            //         const { data } = await queryFulfilled;
+            //         if (data.isSuccess) {
+            //             dispatch(habitApi.util.updateQueryData('getHabits', undefined, (draft) => {
+            //                 const index = draft.value.findIndex(h => h.id === habitLog.habitId);
+            //                 if (index !== -1) {
+            //                     draft.value[index].isCompletedToday = true;
+            //                 }
+            //             }));
                         
-                    }
-                } catch (error) {
-                    console.error('Update failed:', error);
-                }
-            }
+            //         }
+            //     } catch (error) {
+            //         console.error('Update failed:', error);
+            //     }
+            // }
         }),
         deleteHabitLog: builder.mutation({
             query: ({ habitId, date }) => ({
@@ -62,23 +62,23 @@ export const habitLogApi = baseApi.injectEndpoints({
                     message: response.message,
                 };
             },
-            invalidatesTags: ["SummaryStats","HabitDetails"],
-            async onQueryStarted({ habitId, date }, { dispatch, queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled;
-                    if (data.isSuccess) {
-                        dispatch(habitApi.util.updateQueryData('getHabits', undefined, (draft) => {
-                            const index = draft.value.findIndex(h => h.id === habitId);
-                            if (index !== -1) {
-                                draft.value[index].isCompletedToday = false;
-                            }
-                        }));
-                    }
-                } catch (error) {
-                    console.error('Update failed:', error);
-                }
-            },
-            invalidatesTags: ["SummaryStats"],
+            invalidatesTags: ["SummaryStats","HabitDetails","Habits"],
+            // async onQueryStarted({ habitId, date }, { dispatch, queryFulfilled }) {
+            //     try {
+            //         const { data } = await queryFulfilled;
+            //         if (data.isSuccess) {
+            //             dispatch(habitApi.util.updateQueryData('getHabits', undefined, (draft) => {
+            //                 const index = draft.value.findIndex(h => h.id === habitId);
+            //                 if (index !== -1) {
+            //                     draft.value[index].isCompletedToday = false;
+            //                 }
+            //             }));
+            //         }
+            //     } catch (error) {
+            //         console.error('Update failed:', error);
+            //     }
+            // },
+            // invalidatesTags: ["SummaryStats"],
         }),
     })
 });
