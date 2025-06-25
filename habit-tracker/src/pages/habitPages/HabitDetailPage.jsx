@@ -50,7 +50,7 @@ export const HabitDetailPage = () => {
 
             {/* Başlık ve Meta Bilgiler */}
             <div className="mb-8 px-2 sm:px-6">
-                <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                <h3 className="text-3xl sm:text-4xl capitalize font-bold text-gray-900 mb-4">
                     {habit.name}
                 </h3>
 
@@ -61,7 +61,7 @@ export const HabitDetailPage = () => {
                     </p>
                     <p>
                         <span className="font-semibold text-black">Created At:</span>{" "}
-                        {new Date(habit.createdAt).toLocaleDateString("tr-TR", {
+                        {new Date(habit.createdAt).toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "long",
                             day: "numeric",

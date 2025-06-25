@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../features/auth/authSlice";
 import { Link, useLocation } from "react-router-dom";
 import { User } from "lucide-react";
+import { baseApi } from "../../features/baseApi";
 
 
 const UserMenu = () => {
@@ -37,7 +38,7 @@ const UserMenu = () => {
         setOpen(false);
         try {
             await dispatch(logoutUser()).unwrap();
-            
+            dispatch(baseApi.util.resetApiState());
         } catch (error) {
             console.error("Logout failed!",error);
         }

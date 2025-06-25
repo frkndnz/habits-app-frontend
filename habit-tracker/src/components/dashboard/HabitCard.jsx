@@ -85,7 +85,7 @@ const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => 
           ${completed ? 'bg-green-500 text-white' : 'bg-gray-400 text-gray-200'}
           hover:scale-105 hover:brightness-110
         `}
-                                title={completed ? 'Tamamlandı' : 'Tamamlanmadı'}
+                                title={completed ? 'Completed' : 'Not completed'}
                             >
                                 {completed ? '✓' : ''}
 
@@ -99,7 +99,7 @@ const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => 
             <div className="flex justify-between items-center">
                 {/* Left side - Status button */}
                 <button
-                    title={habit.isCompletedToday ? "Tamamlandı işaretini kaldır" : "Tamamlandı olarak işaretle"}
+                    title={habit.isCompletedToday ? "Unmark Completed" : "Mark as completed"}
                     className={`
         relative p-2 sm:p-3 rounded-xl transition-all duration-300 border 
         ${habit.isCompletedToday

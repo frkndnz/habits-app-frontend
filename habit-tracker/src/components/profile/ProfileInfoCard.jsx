@@ -19,7 +19,7 @@ const ProfileInfoCard = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editData, setEditData] = useState({});
     const [fieldErrors, setFieldErrors] = useState({});
-    
+
 
     useEffect(() => {
         if (profileData) {
@@ -65,8 +65,8 @@ const ProfileInfoCard = () => {
     };
 
     const formatDate = (dateString) => {
-        if (!dateString) return 'Belirtilmemiş';
-        return new Date(dateString).toLocaleDateString('tr-TR', {
+        if (!dateString) return 'Unspecified';
+        return new Date(dateString).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long'
         });
@@ -107,7 +107,7 @@ const ProfileInfoCard = () => {
                                 className="flex items-center gap-2 px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-all duration-200 text-sm"
                             >
                                 <Edit3 className="w-3 h-3" />
-                                Düzenle
+                                Edit
                             </button>
                         ) : (
                             <div className="flex gap-2">
@@ -116,14 +116,14 @@ const ProfileInfoCard = () => {
                                     className="flex items-center gap-1 px-3 py-1.5 bg-emerald-500/90 backdrop-blur-sm text-white rounded-full hover:bg-emerald-600/90 transition-all duration-200 text-sm"
                                 >
                                     <Save className="w-3 h-3" />
-                                    Kaydet
+                                    Save
                                 </button>
                                 <button
                                     onClick={handleCancel}
                                     className="flex items-center gap-1 px-3 py-1.5 bg-red-500/90 backdrop-blur-sm text-white rounded-full hover:bg-red-600/90 transition-all duration-200 text-sm"
                                 >
                                     <X className="w-3 h-3" />
-                                    İptal
+                                    Cancel
                                 </button>
                             </div>
                         )}
@@ -159,7 +159,7 @@ const ProfileInfoCard = () => {
                                     <User className="w-5 h-5 text-emerald-600" />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-500 mb-1">Ad</label>
+                                    <label className="block text-xs font-medium text-gray-500 mb-1">FirstName</label>
                                     {isEditing ? (
                                         <input
                                             type="text"
@@ -184,7 +184,7 @@ const ProfileInfoCard = () => {
                                     <User className="w-5 h-5 text-cyan-600" />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-500 mb-1">Soyad</label>
+                                    <label className="block text-xs font-medium text-gray-500 mb-1">LastName</label>
                                     {isEditing ? (
                                         <input
                                             type="text"
@@ -208,20 +208,9 @@ const ProfileInfoCard = () => {
                                     <Mail className="w-5 h-5 text-indigo-600" />
                                 </div>
                                 <div className="flex-1">
-                                    <label className="block text-xs font-medium text-gray-500 mb-1">E-posta</label>
-                                    {isEditing ? (
-                                        <input
-                                            type="email"
-                                            value={editData?.email || ''}
-                                            onChange={(e) => handleInputChange('email', e.target.value)}
-                                            className="text-gray-900 font-medium bg-transparent border-none outline-none focus:ring-0 p-0 w-full"
-                                        />
-                                    ) : (
-                                        <p className="text-gray-900 font-medium break-all">{profileData?.email}</p>
-                                    )}
-                                    {fieldErrors["email"] && (
-                                        <p className="mt-1 text-sm text-red-500">{fieldErrors["email"]}</p>
-                                    )}
+                                    <label className="block text-xs font-medium text-gray-500 mb-1">Email</label>
+                                    <p className="text-gray-900 font-medium break-all">{profileData?.email}</p>
+
                                 </div>
                             </div>
                         </div>
@@ -232,7 +221,7 @@ const ProfileInfoCard = () => {
                                     <Calendar className="w-5 h-5 text-purple-600" />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-500 mb-1">Katılım</label>
+                                    <label className="block text-xs font-medium text-gray-500 mb-1">Join Date</label>
                                     <p className="text-gray-900 font-medium">{formatDate(profileData?.createdAt)}</p>
                                 </div>
                             </div>
@@ -241,14 +230,14 @@ const ProfileInfoCard = () => {
 
                     {/* Habit stats */}
                     <div className="bg-gradient-to-r from-emerald-50 to-cyan-50 rounded-2xl p-6">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Habit İstatistikleri</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Habit Statistics</h3>
                         <div className="grid grid-cols-3 gap-4">
                             <div className="text-center">
                                 <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-2">
                                     <Target className="w-6 h-6 text-white" />
                                 </div>
                                 <div className="text-xl font-bold text-gray-900">{summaryData?.value?.activeHabits || 0}</div>
-                                <div className="text-xs text-gray-600">Aktif Habit</div>
+                                <div className="text-xs text-gray-600">Active Habit</div>
                             </div>
                             <div className="text-center">
                                 <div className="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-2">
@@ -265,7 +254,7 @@ const ProfileInfoCard = () => {
                                     <Award className="w-6 h-6 text-white" />
                                 </div>
                                 <div className="text-xl font-bold text-gray-900">{summaryData?.value?.totalHabits || 0}</div>
-                                <div className="text-xs text-gray-600">Toplam Habit</div>
+                                <div className="text-xs text-gray-600">Total Habit</div>
                             </div>
                         </div>
                     </div>

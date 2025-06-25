@@ -19,11 +19,11 @@ const [isOpen, setIsOpen] = useState(true);
   let completedText = "";
 
   if (completedCount === 0) {
-    completedText = "Henüz tamamlanmış alışkanlığın yok. Hadi ilkini işaretle!";
+    completedText = "You don't have any completed habits yet. Come on, mark the first one";
   } else if (completedCount === 1) {
-    completedText = "Harika! Bugün ilk alışkanlığı tamamladın.";
+    completedText = "Great! You've completed your first habit today";
   } else {
-    completedText = `Harika! Bugün ${completedCount} alışkanlığı tamamladın.`;
+    completedText = `Great! You've completed ${completedCount} habits today`;
   }
   return (
     < div className={`${isOpen ? "sticky":""} top-0 backdrop-blur-[2px] z-10  rounded-t-xl shadow-sm`} >

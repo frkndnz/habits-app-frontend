@@ -7,11 +7,11 @@ import { useUpdateHabitMutation } from "../../features/habits/habitApi";
 import { useAddHabitLogMutation } from "../../features/habitLogs/habitLogApi";
 import { useDeleteHabitLogMutation } from "../../features/habitLogs/habitLogApi";
 import FilterPanel from "./FilterPanel";
+import { lazy, Suspense } from "react";
 
-
+const RecommendedReads=lazy(()=> import("@/components/blogs/RecommendedReads"));
 
 const HabitList = () => {
-
 
     const { data } = useGetHabitsQuery();
 
@@ -33,7 +33,7 @@ const HabitList = () => {
     });
 
     const filteredHabits=useMemo(()=>{
-        return dataRef.current?.value.filter((habit)=>{
+        return dataRef.current?.value?.filter((habit)=>{
             const statusMatch =
         filter.status === "all" ||
         (filter.status === "complete" && habit.isCompletedToday) ||
@@ -64,7 +64,7 @@ const HabitList = () => {
 
 
     const handleDeleteClick = useCallback((habitId) => {
-        if (window.confirm("Bu alışkanlığı silmek istediğinize emin misiniz?")) {
+        if (window.confirm("Are you sure you want to delete this habit?")) {
             deleteHabit(habitId).unwrap()
             setIsEditModalOpen(false);
             setSelectedHabit(null);
@@ -109,6 +109,9 @@ const HabitList = () => {
                     onSave={handleEditSave}
                 />
             )}
+            <Suspense fallback={<p>Loading...</p>}>
+                <RecommendedReads/>
+            </Suspense>
         </>
     );
 }

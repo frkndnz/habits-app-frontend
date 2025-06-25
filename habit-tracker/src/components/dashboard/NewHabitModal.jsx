@@ -78,10 +78,10 @@ const NewHabitModal = React.memo(({ open, onClose, habit, onSave }) => {
             <DialogContent className="sm:max-w-md lg:max-w-lg bg-white border-0 shadow-2xl" style={{ backgroundColor: formData.color }}>
                 <DialogHeader className="space-y-3">
                     <DialogTitle className="text-2xl font-bold text-gray-900">
-                        Yeni Alışkanlık Ekle
+                       {habit ? "Edit Habit": "Add New Habit"} 
                     </DialogTitle>
                     <DialogDescription className="font-semibold text-gray-900">
-                        Bu formu doldurarak yeni bir alışkanlık oluşturabilirsin.
+                      {habit ? "You can edit your habit with this form": "You can create a new habit by filling out this form"}  
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -93,7 +93,7 @@ const NewHabitModal = React.memo(({ open, onClose, habit, onSave }) => {
                                 value={formData.name}
                                 onChange={handleInputChange}
                                 name="name"
-                                placeholder="Örn: Yürüyüş"
+                                placeholder="Example: Walking"
                                 className="border-gray-200 focus:border-blue-500 focus:ring-blue-500 bg-white text-gray-900"
                                 required
                                 maxLength={20} // Limit name length to 50 characters
@@ -108,17 +108,17 @@ const NewHabitModal = React.memo(({ open, onClose, habit, onSave }) => {
                                 value={formData.description}
                                 onChange={handleInputChange}
                                 name="description"
-                                placeholder="Örn: Günde 30 dakika yürüyüş yap"
+                                placeholder="For example: Walk 30 minutes a day"
                                 className="border-gray-200 focus:border-blue-500 focus:ring-blue-500 bg-white text-gray-900"
                                 required
                             />
                         </div>
                         <div className="flex flex-col  gap-6">
                             <div className="space-y-2  ">
-                                <Label htmlFor="categoryId" className="text-sm font-medium text-white">Kategori Seç</Label>
+                                <Label htmlFor="categoryId" className="text-sm font-medium text-white">Select Category</Label>
                                 <Select value={formData.categoryId} onValueChange={(value) => setFormData(prev => ({ ...prev, categoryId: value }))}>
                                     <SelectTrigger className="!bg-white !text-gray-500">
-                                        <SelectValue placeholder="Bir kategori seçin"></SelectValue>
+                                        <SelectValue placeholder="Select a category"></SelectValue>
                                     </SelectTrigger>
                                     <SelectContent>
                                         {data?.value.map((category) => (
@@ -132,18 +132,18 @@ const NewHabitModal = React.memo(({ open, onClose, habit, onSave }) => {
                             <div className="space-y-2 w-full sm:w-1/2">
                                 <Accordion type="single" collapsible>
                                     <AccordionItem value="add-category">
-                                        <AccordionTrigger className="text-sm text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all">+ Yeni Kategori Ekle</AccordionTrigger>
+                                        <AccordionTrigger className="text-sm text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all">+ Add New Category</AccordionTrigger>
                                         <AccordionContent className="mt-2 space-y-2 bg-white/5 p-4 rounded-xl border border-white/10">
                                             <Label htmlFor="newCategoryName" className="text-sm font-medium text-white"></Label>
                                             <div className="flex gap-2">
                                                 <Input
-                                                    placeholder="Kategori adı"
+                                                    placeholder="Category name"
                                                     value={newCategoryName}
                                                     onChange={(e) => setNewCategoryName(e.target.value)}
                                                     className="border-gray-200 focus:border-blue-500 focus:ring-blue-500 bg-white text-gray-900"
 
                                                 />
-                                                <Button type="button" onClick={handleAddCategory}>Ekle</Button>
+                                                <Button type="button" onClick={handleAddCategory}>Add</Button>
                                             </div>
                                         </AccordionContent>
                                     </AccordionItem>
@@ -180,11 +180,11 @@ const NewHabitModal = React.memo(({ open, onClose, habit, onSave }) => {
                     <DialogFooter className="gap-2">
                         <DialogClose asChild>
                             <Button type="button" variant="outline" className="border-gray-200 hover:bg-red-500" >
-                                İptal
+                                Cancel
                             </Button>
                         </DialogClose>
 
-                        <Button type="submit" className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700">Kaydet</Button>
+                        <Button type="submit" className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700">Save</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

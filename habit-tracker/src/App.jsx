@@ -18,6 +18,8 @@ import { authInfo } from './features/auth/authInfoThunks';
 import {PulseLoader} from 'react-spinners';
 import Dashboard from './pages/Dashboard';
 import { HabitDetailPage } from './pages/habitPages/HabitDetailPage';
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
+import { ResetPasswordPage } from './pages/ResetPasswordPage';
 
 
 function App() {
@@ -73,7 +75,8 @@ function App() {
       <Route path='/auth/login' element={<LoginPage />}></Route>
       <Route path='/auth/register' element={<RegisterPage />}></Route>
       <Route path='/auth/confirm-email' element={<ConfirmEmailPage />}></Route>
-
+      <Route path='/auth/forgot-password' element={<ForgotPasswordPage/>}></Route>
+      <Route path='/auth/reset-password' element={<ResetPasswordPage/>}></Route>
       {AdminRoutes}
 
     </Routes>

@@ -119,7 +119,7 @@ const handleSearchTermChange = (e) => {
               onClick={() => navigate(`/blog/${post.id}`)}
               className="mt-8 px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg shadow-md transition-colors duration-200 self-start"
             >
-              Detayları Gör
+              See Details
             </Button>
           </CardContent>
 

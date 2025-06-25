@@ -56,11 +56,11 @@ export  const HabitDetailStatsList = () => {
                         <BarChart3 className="h-8 w-8 text-white" />
                     </div>
                     <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        Alışkanlıkların Detaylı İstatistiği
+                        Detailed Statistics of Habits
                     </h2>
                 </div>
                 <p className="text-white text-lg max-w-2xl mx-auto">
-                    Alışkanlıklarınızın gelişimini takip edin ve başarılarınızı kutlayın
+                    Track your habit development and celebrate your successes
                 </p>
             </div>
 
@@ -122,7 +122,7 @@ export  const HabitDetailStatsList = () => {
                                                 </div>
                                                 <div className="flex-1">
                                                     <p className="text-xs text-white/80 font-medium uppercase tracking-wide">
-                                                        Toplam Tamamlanan
+                                                        Total Completed
                                                     </p>
                                                     <p className="text-lg font-bold text-white">
                                                         {habit.totalCompletions}
@@ -137,10 +137,10 @@ export  const HabitDetailStatsList = () => {
                                                 </div>
                                                 <div className="flex-1">
                                                     <p className="text-xs text-white/80 font-medium uppercase tracking-wide">
-                                                        En İyi Seri
+                                                        Best Streak
                                                     </p>
                                                     <p className="text-lg font-bold text-white">
-                                                        {habit.bestStreak} gün
+                                                        {habit.bestStreak} day
                                                     </p>
                                                 </div>
                                             </div>
@@ -152,10 +152,10 @@ export  const HabitDetailStatsList = () => {
                                                 </div>
                                                 <div className="flex-1">
                                                     <p className="text-xs text-white/80 font-medium uppercase tracking-wide">
-                                                        Mevcut Seri
+                                                        Current Streak
                                                     </p>
                                                     <p className="text-lg font-bold text-white">
-                                                        {habit.currentStreak} gün
+                                                        {habit.currentStreak} day
                                                     </p>
                                                 </div>
                                             </div>
@@ -171,10 +171,10 @@ export  const HabitDetailStatsList = () => {
                                                 </div>
                                                 <div className="flex-1">
                                                     <p className="text-xs text-white/80 font-medium uppercase tracking-wide">
-                                                        Bugün
+                                                        Today
                                                     </p>
                                                     <p className="text-lg font-bold text-white">
-                                                        {habit.isCompletedToday ? "Tamamlandı ✓" : "Henüz değil"}
+                                                        {habit.isCompletedToday ? "Completed ✓" : "Not yet"}
                                                     </p>
                                                 </div>
                                             </div>

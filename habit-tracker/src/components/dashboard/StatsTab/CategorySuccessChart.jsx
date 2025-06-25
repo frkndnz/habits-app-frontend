@@ -32,8 +32,8 @@ const CustomComboTooltip = ({ active, payload, label }) => {
     return (
       <div className="bg-gray-800 text-white p-3 rounded-lg shadow-lg">
         <p className="font-semibold mb-1">{label}</p>
-        {success && <p style={{ color: success.color }}>{`Başarı Oranı: ${success.value.toFixed(2)}%`}</p>}
-        {count && <p style={{ color: count.color }}>{`Alışkanlık Sayısı: ${count.value}`}</p>}
+        {success && <p style={{ color: success.color }}>{`Success Rate: ${success.value.toFixed(2)}%`}</p>}
+        {count && <p style={{ color: count.color }}>{`Number of Habits: ${count.value}`}</p>}
       </div>
     );
   }
@@ -51,7 +51,7 @@ const CategorySuccessChart = () => {
   return (
     <div className="flex flex-col items-center justify-center bg-gray-900 p-6 rounded-2xl shadow-md w-full  mx-auto mt-6 h-[400px] ">
       <h2 className="text-xl font-bold text-white mb-4">
-        Kategorilere Göre Başarı Oranı ve Alışkanlık Sayısı
+       Success Rate and Number of Habits by Category
       </h2>
       <div style={{ width: '100%', height: 250 }}>
         <ResponsiveContainer width="100%" height="100%">
@@ -88,7 +88,7 @@ const CategorySuccessChart = () => {
               fill="#10b981"
               barSize={50}
               radius={[10, 10, 0, 0]}
-              name="Başarı Oranı (%)"
+              name="Success Rate (%)"
             />
 
             <Line
@@ -97,7 +97,7 @@ const CategorySuccessChart = () => {
               dataKey="habitCount"
               stroke="#3b82f6"
               strokeWidth={3}
-              name="Alışkanlık Sayısı"
+              name="Number of Habits"
               dot={{ r: 6, fill: '#3b82f6' }}
               activeDot={{ r: 8 }}
             />

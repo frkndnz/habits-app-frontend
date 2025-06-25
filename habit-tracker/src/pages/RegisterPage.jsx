@@ -78,40 +78,40 @@ const RegisterPage = () => {
                 className="bg-white dark:bg-gray-800 w-full max-w-md p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
             >
                 <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6">
-                    Kayıt Ol
+                    Register
                 </h2>
 
                 <InputComponent
                     name="userName"
-                    label="Kullanıcı Adı"
+                    label="User name"
                     value={formData.userName}
                     onChange={handleChange}
                     errorMap={errorMap}
                 />
                 <InputComponent
                     name="firstName"
-                    label="Ad"
+                    label="FirstName"
                     value={formData.firstName}
                     onChange={handleChange}
                     errorMap={errorMap}
                 />
                 <InputComponent
                     name="lastName"
-                    label="Soyad"
+                    label="LastName"
                     value={formData.lastName}
                     onChange={handleChange}
                     errorMap={errorMap}
                 />
                 <InputComponent
                     name="email"
-                    label="E-posta"
+                    label="Email"
                     value={formData.email}
                     onChange={handleChange}
                     errorMap={errorMap}
                 />
                 <InputComponent
                     name="password"
-                    label="Şifre"
+                    label="Password"
                     type="password"
                     value={formData.password}
                     onChange={handleChange}
@@ -123,7 +123,7 @@ const RegisterPage = () => {
                     disabled={isLoading}
                     className="w-full mt-6 py-2 px-4 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 transition"
                 >
-                    {isLoading ? "Kayıt Yapılıyor..." : "Kayıt Ol"}
+                    {isLoading ? "Registering..." : "Register"}
                 </button>
             </form>
         </div>

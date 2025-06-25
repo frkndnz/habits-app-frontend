@@ -24,14 +24,14 @@ const BlogDetails = () => {
         onClick={() => navigate(-1)}
         className="mb-6 bg-gray-200 hover:bg-gray-300 text-black"
       >
-        ← Geri
+        ← Back
       </Button>
 
       <Card className="p-6 shadow-lg space-y-6">
         <h1 className="text-4xl font-bold">{blogPost.title}</h1>
 
         <div className="text-sm text-gray-500 flex gap-4">
-          <span>✍️ {blogPost.creatorName || "Yazar Bilgisi Yok"}</span>
+          <span>✍️ {blogPost.creatorName || "No Author Information"}</span>
           <span>📅 {new Date(blogPost.createdAt).toLocaleDateString( {
             year: "numeric",
             month: "long",

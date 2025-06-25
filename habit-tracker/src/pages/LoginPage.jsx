@@ -4,12 +4,14 @@ import { loginUser } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleLogin } from "@react-oauth/google";
 import { googleLogin } from "../features/auth/googleAuthThunks";
+import { Eye, EyeOff } from "lucide-react";
+
 
 const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isLoading, errorMessages, message, isAuthenticated } = useSelector((state) => state.auth);
-
+    const [showPassword, setShowPassword] = useState(false);
     useEffect(() => {
         if (isAuthenticated) {
             navigate('/');
@@ -69,7 +71,7 @@ const LoginPage = () => {
                     className="bg-white dark:bg-gray-800 w-full max-w-md p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
                 >
                     <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6">
-                        Giriş Yap
+                        Login
                     </h2>
 
                     {errorMessages &&
@@ -84,7 +86,7 @@ const LoginPage = () => {
                             htmlFor="emailOrUserName"
                             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                         >
-                            E-posta veya Kullanıcı Adı
+                            Email or Username
                         </label>
                         <input
                             type="text"
@@ -101,16 +103,27 @@ const LoginPage = () => {
                             htmlFor="password"
                             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                         >
-                            Şifre
+                            Password
                         </label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            className="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                            required
-                        />
+                        <div className="relative">
+
+                            <input
+                                type={showPassword ? "text":"password"}
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                className="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                required
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
+                                tabIndex={-1}
+                            >
+                                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+                            </button>
+                        </div>
                     </div>
 
                     <button
@@ -118,16 +131,25 @@ const LoginPage = () => {
                         disabled={isLoading}
                         className="w-full py-2 px-4 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 transition"
                     >
-                        {isLoading ? "Giriş Yapılıyor..." : "Giriş Yap"}
+                        {isLoading ? "Logging In..." : "Login"}
                     </button>
 
                     <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
-                        Hesabın yok mu?{" "}
+                        Don't have an account?{" "}
                         <a
                             href="/auth/register"
                             className="text-teal-500 hover:underline font-medium"
                         >
-                            Kayıt Ol
+                            Register
+                        </a>
+                    </p>
+                    <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
+                        Forgot your password?{" "}
+                        <a
+                            href="/auth/forgot-password"
+                            className="text-teal-500 hover:underline font-medium"
+                        >
+                            Reset it here
                         </a>
                     </p>
                 </form>
@@ -144,7 +166,7 @@ const LoginPage = () => {
                         useOneTap={false}
                         auto_select={false}
                         disabled={false}
-                        
+
                     />
                 </div>
             </div>

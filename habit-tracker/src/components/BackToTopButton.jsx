@@ -41,7 +41,7 @@ export default function BackToTopButton() {
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}
       `}
       aria-label="Sayfanın en üstüne git"
-      title="Yukarı Çık"
+      title="Go Up"
     >
       <ChevronUp size={28} /> {/* Lucide ikonu */}
     </button>

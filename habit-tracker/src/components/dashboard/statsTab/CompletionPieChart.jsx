@@ -19,13 +19,13 @@ export const CompletionPieChart = () => {
     const completedCount =habits ? habits?.filter(h => h.isCompletedToday).length :0;
     const incompletedCount = habits ? habits?.length - completedCount:0;
     const chartData = [
-        { name: 'Tamamlanan', value: completedCount },
-        { name: 'Eksik kalan', value: incompletedCount }
+        { name: 'Completed', value: completedCount },
+        { name: 'InCompleted', value: incompletedCount }
     ];
 
     return (
         <div className="flex flex-col items-center justify-center bg-gray-900 p-6 rounded-2xl shadow-md w-full  mx-auto mt-6  h-[400px] ">
-            <h2 className="text-xl font-bold text-white mb-4 ">Günlük tamamlama oranı</h2>
+            <h2 className="text-xl font-bold text-white mb-4 ">Daily completion rate</h2>
                 <PieChart width={250} height={250} className="px-4 ">
                     <Pie
                         data={chartData}
