@@ -51,21 +51,7 @@ export const habitApi = baseApi.injectEndpoints({
                     message: response.message,
                 }
             },
-            async onQueryStarted(habit, { dispatch, queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled;
-                    dispatch(
-                        habitApi.util.updateQueryData('getHabits', undefined, (draft) => {
-                            const index = draft.value.findIndex((h) => h.id === habit.id);
-                            if (index !== -1) {
-                                draft.value[index] = data.value;
-                            }
-                        })
-                    );
-                } catch (error) {
-                    console.error('Update failed:', error);
-                }
-            }
+            invalidatesTags: ['Habits','HabitDetails','SummaryStats'],
         }),
         deleteHabit: builder.mutation({
             query: (id) => ({
