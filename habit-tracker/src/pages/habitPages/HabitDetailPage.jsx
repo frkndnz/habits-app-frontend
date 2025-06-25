@@ -56,8 +56,8 @@ export const HabitDetailPage = () => {
 
                 {/* Kategori ve Oluşturulma Tarihi */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm sm:text-base text-gray-500">
-                    <p className="mb-1 sm:mb-0 text-white rounded-lg p-2" style={{backgroundColor:habit.color}}>
-                        <span className="font-semibold " >Category :</span> {habit.categoryName}
+                    <p className="mb-1 sm:mb-0 text-white rounded-lg p-2 capitalize" style={{backgroundColor:habit.color}}>
+                        <span className="font-semibold capitalize " >Category :</span> {habit.categoryName}
                     </p>
                     <p>
                         <span className="font-semibold text-black">Created At:</span>{" "}

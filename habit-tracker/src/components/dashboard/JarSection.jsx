@@ -57,9 +57,9 @@ const [isOpen, setIsOpen] = useState(true);
       )}
       {!isOpen && (
         <>
-        <h2 className='text-center  text-sm sm:text-lg font-semibold text-white mt-4  p-2 rounded-lg bg-gray-600 w-1/3 mx-auto'>
-        {completedText}
-      </h2>
+        <h2 className="w-fit max-w-full mx-auto mt-6 px-6 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-white text-center text-base sm:text-lg font-semibold shadow-md">
+  🎉 {completedText}
+</h2>
         </>
       )}
     </div>

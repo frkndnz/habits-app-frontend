@@ -30,7 +30,7 @@ const Header = () => {
                     <p className="text-gray-400 text-sm">Build better habits, one day at a time</p>
                 </div>
             </div>
-            <button onClick={()=>setIsAddHabitModalOpen(true)} className="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 py-2.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+            <button onClick={()=>setIsAddHabitModalOpen(true)} className="text-sm sm:text-lg   bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white  p-2 sm:p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                 New Habit
             </button>
             <NewHabitModal open={isAddHabitModalOpen}  onClose={() => setIsAddHabitModalOpen(false)} onSave={handleAddHabit} />

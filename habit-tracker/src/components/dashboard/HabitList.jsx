@@ -1,4 +1,4 @@
-import React, { useState, useCallback ,useRef} from "react";
+import React, { useState, useCallback, useRef, useMemo } from "react";
 import HabitCard from "./HabitCard";
 import NewHabitModal from "./NewHabitModal";
 import { useGetHabitsQuery } from "../../features/habits/habitApi";
@@ -6,24 +6,45 @@ import { useDeleteHabitMutation } from "../../features/habits/habitApi";
 import { useUpdateHabitMutation } from "../../features/habits/habitApi";
 import { useAddHabitLogMutation } from "../../features/habitLogs/habitLogApi";
 import { useDeleteHabitLogMutation } from "../../features/habitLogs/habitLogApi";
+import FilterPanel from "./FilterPanel";
+
+
+
 const HabitList = () => {
 
 
     const { data } = useGetHabitsQuery();
 
-
-
-
     const [deleteHabit] = useDeleteHabitMutation();
     const [updateHabit] = useUpdateHabitMutation();
     const [addHabitLog] = useAddHabitLogMutation();
     const [deleteHabitLog] = useDeleteHabitLogMutation();
-  
-const dataRef = useRef(null);
-dataRef.current = data;
+
+    const dataRef = useRef(null);
+    dataRef.current = data;
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedHabit, setSelectedHabit] = useState(null);
+    
+    const [filter,setFilter]=useState({
+        status:"all",
+        category:"all",
+        
+    });
+
+    const filteredHabits=useMemo(()=>{
+        return dataRef.current?.value.filter((habit)=>{
+            const statusMatch =
+        filter.status === "all" ||
+        (filter.status === "complete" && habit.isCompletedToday) ||
+        (filter.status === "incomplete" && !habit.isCompletedToday);
+
+      const categoryMatch =
+        filter.category === "all" || habit.categoryName === filter.category;
+        return statusMatch && categoryMatch ;
+        })
+    },[dataRef.current?.value,filter]);
+
 
     const handleEditClick = useCallback((habitId) => {
         const habit = dataRef.current?.value.find(h => h.id === habitId);
@@ -68,9 +89,13 @@ dataRef.current = data;
 
     return (
         <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-16   rounded-b-xl bg-gray-800   ">
+            <FilterPanel
+                filter={filter}
+                onChange={(updated)=> setFilter((prev)=>({...prev,...updated}))}
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-16   rounded-b-xl bg-gradient-to-r from-gray-900 to-gray-600   ">
 
-                {data?.value && data.value.map((habit) => {
+                {data?.value && filteredHabits.map((habit) => {
                     return (
                         <HabitCard key={habit.id} habitId={habit.id} onEdit={handleEditClick} onDelete={handleDeleteClick} onMarkComplete={handleMarkComplete} />
                     );
