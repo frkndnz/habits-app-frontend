@@ -10,7 +10,7 @@ const  RecommendedReads = () => {
         searchTerm:'',
     });
 
-    const posts=data?.value.blogPosts;
+    const posts=data?.value?.blogPosts;
     
     if (isLoading) return <p className="text-muted-foreground">Loading recommendations...</p>;
     return (
