@@ -1,5 +1,9 @@
 {
     "rewrites":[
-        {"source":"/(.*)", "destination":"/index.html"}
+        {"source":"/(.*)", "destination":"/index.html"},
+        {
+            "source":"/api/:match*",
+            "destination":"https://habits-backend.wittyplant-112524fe.westeurope.azurecontainerapps.io/api/:match*"
+        }
     ]
 }
