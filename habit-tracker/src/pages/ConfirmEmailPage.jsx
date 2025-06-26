@@ -1,6 +1,6 @@
 import React, { use } from "react";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import API from "../api/axios";
 
 
@@ -9,6 +9,7 @@ const ConfirmEmailPage = () => {
     const [searchParams] = useSearchParams();
     const [message, setMessage] = useState("Email onaylanıyor...");
     const [showResend, setShowResend] = useState(false);
+    const navigate=useNavigate();
    
     useEffect(() => {
         const token = searchParams.get("token");
@@ -18,7 +19,7 @@ const ConfirmEmailPage = () => {
             confirmEmail(token, userId);
         }
         else {
-            setMessage("Geçersiz istek. Lütfen tekrar deneyin.");
+            setMessage("Invalid request. Please try again.");
         }
 
 
@@ -30,6 +31,7 @@ const ConfirmEmailPage = () => {
 
             if (response.data.isSuccess) {
                 setMessage("Email has been confirmed successfully. You can log in.");
+                navigate("/auth/login");
             }
             else {
                 setMessage("Email verification failed. Please try again." + response.data?.message);
@@ -39,7 +41,7 @@ const ConfirmEmailPage = () => {
         }
         catch (error) {
 
-            const errorMessage = error.response?.data.errorMessages;
+            const errorMessage = error.response?.data?.errorMessages;
             console.log((errorMessage));
             setMessage("Email verification failed. Please try again. " + errorMessage[0]);
             if (errorMessage[0] === "InvalidToken") {
@@ -72,7 +74,7 @@ const ConfirmEmailPage = () => {
     }
 
     return (
-        <div className="container p-10">
+        <div className="container p-10 bg-gray-300 h-screen  content-start ">
             <p>{message}</p>
             {showResend && (
                 <button onClick={handleResend} className="bg-gray-400 font-bold mt-6 p-4 shadow-lg rounded-lg cursor-pointer">

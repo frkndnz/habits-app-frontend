@@ -62,7 +62,7 @@ export const ForgotPasswordPage = () => {
 
                     <button
                         type="submit"
-                        disabled={isLoading}
+                        disabled={isLoading || isSuccess}
                         className="w-full py-2 px-4 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75 transition"
                     >
                         {isLoading ? "Sending..." : "Send Reset Link"}
