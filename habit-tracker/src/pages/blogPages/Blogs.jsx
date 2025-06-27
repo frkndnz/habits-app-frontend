@@ -125,11 +125,11 @@ const handleSearchTermChange = (e) => {
 
           {/* Sağ Bölüm: Resim */}
           {post.imageUrl && (
-            <div className="sm:w-2/5 md:w-1/2 lg:w-2/5 flex-shrink-0">
+            <div className="sm:w-2/5 md:w-1/2 lg:w-2/5 flex-shrink-0 aspect-square ">
               <img
                 src={post.imageUrl}
                 alt={post.title}
-                className="w-full h-full object-cover rounded-t-xl sm:rounded-r-xl sm:rounded-tl-none shadow-md"
+                className="w-full h-full object-fill  rounded-t-xl sm:rounded-r-xl sm:rounded-tl-none shadow-md "
               />
             </div>
           )}

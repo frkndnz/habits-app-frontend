@@ -29,7 +29,7 @@ const  RecommendedReads = () => {
               <img
                 src={post.imageUrl}
                 alt={post.title}
-                className="w-full h-40 object-cover rounded-md mb-4"
+                className="w-full h-40 object-fill rounded-md mb-4"
               />
             )}
 

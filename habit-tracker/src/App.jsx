@@ -69,6 +69,7 @@ function App() {
           <Route path='user/profile' element={<ProfilePage />} ></Route>
           <Route path='dashboard' element={<Dashboard/>}>
             <Route path='habits/:habitId' element={<HabitDetailPage/>}></Route>
+            
           </Route>
           
         </Route>

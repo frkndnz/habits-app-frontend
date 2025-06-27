@@ -3,8 +3,12 @@ import { Outlet, Link } from "react-router-dom";
 import Navbar from "../components/Navbars/Navbar";
 import { Footer } from "../components/footerSection/Footer";
 import BackToTopButton from "../components/BackToTopButton";
+import GeminiChat from "../components/GeminiChat";
+import { useSelector } from "react-redux";
+
 const MainLayout = () => {
 
+    const isAuthenticated=useSelector((state)=>state.auth.isAuthenticated);
 
     return (
         <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden flex flex-col gap-4 px-2 sm:px-4 bg-gray-900">
@@ -15,10 +19,12 @@ const MainLayout = () => {
                 <Outlet />
             </main>
             <Footer />
+            
             <BackToTopButton/>
+            {isAuthenticated && <GeminiChat/>}
+            
         </div>
     );
 };
 
 export default MainLayout;
-// This is the main layout component that includes navigation and footer.

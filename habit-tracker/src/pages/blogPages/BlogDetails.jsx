@@ -38,14 +38,16 @@ const BlogDetails = () => {
             day: "numeric",
           })}</span>
         </div>
+          <div className="h-100">
 
         {blogPost.imageUrl && (
           <img
-            src={blogPost.imageUrl}
-            alt={blogPost.title}
-            className="w-full h-auto object-cover rounded-lg shadow"
+          src={blogPost.imageUrl}
+          alt={blogPost.title}
+          className="w-full h-full object-fill rounded-lg shadow"
           />
         )}
+        </div>
 
         
           <ReactMarkdown className="text-left prose prose-blue max-w-none">{blogPost.content}</ReactMarkdown>
