@@ -1,35 +1,73 @@
 // src/pages/admin/Layout.jsx
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // `lucide-react` yüklemediysen: npm i lucide-react
 import { Header } from "../../components/admin/Header";
 export default function AdminLayout() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className={`fixed z-40 lg:static lg:translate-x-0 transform top-0 left-0 h-full w-64 bg-gray-800 text-white p-4 transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold">Admin Panel</h2>
-          <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
-            <X size={36} />
-          </button>
-        </div>
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block lg:w-64 bg-gray-800 text-white p-4">
+        <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
         <nav className="space-y-2">
-          <Link to="/admin" className="block hover:text-gray-300">Dashboard</Link>
-          <Link to="/admin/users" className="block hover:text-gray-300">Users</Link>
-          <Link to="/admin/blogs" className="block hover:text-gray-300">Blogs</Link>
+          <Link to="/admin" className="block hover:text-gray-300">
+            Dashboard
+          </Link>
+          <Link to="/admin/users" className="block hover:text-gray-300">
+            Users
+          </Link>
+          <Link to="/admin/blogs" className="block hover:text-gray-300">
+            Blogs
+          </Link>
         </nav>
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col flex-1 overflow-hidden">
+      {/* Content area */}
+      <div className=" flex flex-col flex-1 overflow-hidden">
         {/* Header */}
-        <Header setSideBar={()=>setSidebarOpen(true)}/>
+        <div className="relative">
 
-        {/* Page content */}
-        <main className="flex-1 overflow-y-auto ">
+
+          <Header
+            mobileMenuOpen={mobileMenuOpen}
+            toggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
+          />
+
+          {/* Mobile dropdown menu */}
+          {mobileMenuOpen && (
+            <nav
+              ref={menuRef}
+              className="lg:hidden absolute top-full left-0 w-fit bg-white shadow border-b px-4 py-3 flex flex-col space-y-3 z-50"
+            >
+              <Link
+                to="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-teal-600"
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/admin/users"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-teal-600"
+              >
+                Users
+              </Link>
+              <Link
+                to="/admin/blogs"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-teal-600"
+              >
+                Blogs
+              </Link>
+            </nav>
+          )}
+        </div>
+        {/* Main content */}
+        <main className="flex-1 overflow-y-auto p-4">
           <Outlet />
         </main>
       </div>
