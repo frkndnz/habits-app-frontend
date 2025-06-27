@@ -13,7 +13,7 @@ export const Blogs = () => {
   const [rawSearchTerm, setRawSearchTerm] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 4;
 
 
   const { data, error, isLoading } = useGetBlogPostsQuery({
@@ -37,8 +37,8 @@ const handleSearchTermChange = (e) => {
 
 
 
-  if (isLoading) return <p>Yükleniyor...</p>;
-  if (error) return <p>Bir hata oluştu.</p>;
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>An error occurred.</p>;
 
 
 
@@ -136,7 +136,7 @@ const handleSearchTermChange = (e) => {
         </Card>
       ))}
       {data.value ==null &&(
-        <h1 className="text-white text-xl font-sembold">Aradıgınızı bulamadık!</h1>
+        <h1 className="text-white text-xl font-sembold">We couldn't find what you were looking for!</h1>
       )}
       <Pagination
               page={page}

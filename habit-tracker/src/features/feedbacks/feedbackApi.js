@@ -16,9 +16,18 @@ export const feedbackApi=baseApi.injectEndpoints({
             providesTags:['Feedbacks'],
 
         }),
+        addFeedback:builder.mutation({
+            query:(data)=>({
+                url:'feedbacks',
+                method:"POST",
+                body:data
+            }),
+            invalidatesTags:['Feedbacks']
+        }),
     })
 })
 
 export const{
-    useGetFeedbacksQuery
+    useGetFeedbacksQuery,
+    useAddFeedbackMutation
 }=feedbackApi;

@@ -20,7 +20,7 @@ const Header = () => {
 
 
     return (
-        <header className="flex justify-between items-center p-6 bg-gray-800 rounded-t-xl border-b border-teal-400">
+        <header className="flex justify-between items-center p-6 bg-slate-700 rounded-t-xl border-b border-teal-400">
             <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl flex items-center justify-center">
                     <span className="text-white font-bold text-lg">H</span>

@@ -10,7 +10,7 @@ export const Footer = () => {
                     <Link to="/about" className=" text-sm underline mx-2">About</Link>
                     <Link to="/contact" className="text-sm underline mx-2">Contact</Link>
                     <Link to="/privacy-policy" className="text-sm underline mx-2">Privacy Policy</Link>
-                    <Link to="/privacy-policy" className="text-sm underline mx-2">Feedback</Link>
+                    
 
                 </div>
                 <div className="flex gap-4 justify-center sm:justify-end">

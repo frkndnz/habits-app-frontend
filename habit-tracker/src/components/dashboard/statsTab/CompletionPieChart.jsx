@@ -24,7 +24,7 @@ export const CompletionPieChart = () => {
     ];
 
     return (
-        <div className="flex flex-col items-center justify-center bg-gray-900 p-6 rounded-2xl shadow-md w-full  mx-auto mt-6  h-[400px] ">
+        <div className="flex flex-col items-center justify-center bg-chart-3 p-6 rounded-2xl shadow-md w-full  mx-auto mt-6  h-[400px] ">
             <h2 className="text-xl font-bold text-white mb-4 ">Daily completion rate</h2>
                 <PieChart width={250} height={250} className="px-4 ">
                     <Pie

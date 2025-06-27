@@ -15,10 +15,10 @@ const  RecommendedReads = () => {
     if (isLoading) return <p className="text-muted-foreground">Loading recommendations...</p>;
     return (
          <section className="mt-12">
-      <h2 className="text-xl font-bold mb-6 text-white">
+      <h2 className=" text-xl sm:text-2xl font-bold mb-6 text-white">
         Recommended Reads to Improve Your Habits
       </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {posts?.map((post) => (
           <div
             key={post.id}
