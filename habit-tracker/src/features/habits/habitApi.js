@@ -5,7 +5,7 @@ export const habitApi = baseApi.injectEndpoints({
         getHabits: builder.query({
             query: () => 'habits',
             transformResponse:(response)=>{
-                console.log("response", response);
+               
                 return{
                     value: response.value,
                     isSuccess:response.isSuccess,

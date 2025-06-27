@@ -15,7 +15,7 @@ const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => 
     if (!habit)
         return null;
 
-    console.log("HabitCard render", habit);
+    
 
     const handleCardClick = () => {
 

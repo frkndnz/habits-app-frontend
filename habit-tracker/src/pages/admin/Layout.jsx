@@ -22,6 +22,12 @@ export default function AdminLayout() {
           <Link to="/admin/blogs" className="block hover:text-gray-300">
             Blogs
           </Link>
+          <Link to="/admin/feedbacks" className="block hover:text-gray-300">
+            Feedbacks
+          </Link>
+          <Link to="/" className="block hover:text-gray-300">
+            Home
+          </Link>
         </nav>
       </div>
 
@@ -62,6 +68,20 @@ export default function AdminLayout() {
                 className="hover:text-teal-600"
               >
                 Blogs
+              </Link>
+              <Link
+                to="/admin/feedbacks"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-teal-600"
+              >
+                Feedbacks
+              </Link>
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-teal-600"
+              >
+                Home
               </Link>
             </nav>
           )}

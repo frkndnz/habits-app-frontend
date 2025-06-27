@@ -44,7 +44,7 @@ function App() {
   }, [isAuthenticated])
 
   if (!isAuthChecked) {
-    console.log("isAuthChecked false");
+    
     return( 
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className='sweet-loading'>

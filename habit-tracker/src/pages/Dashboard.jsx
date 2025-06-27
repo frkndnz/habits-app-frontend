@@ -17,7 +17,7 @@ const Dashboard = () => {
     const location=useLocation();
 
     const isHabitDetailPage=location.pathname.includes('/dashboard/habits/');
-    console.log(isHabitDetailPage);
+    
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-teal-800 p-4 md:p-4 rounded-lg ">

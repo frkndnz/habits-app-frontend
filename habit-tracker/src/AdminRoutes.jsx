@@ -8,6 +8,9 @@ import { BlogList } from './components/admin/blogs/BlogList';
 import { BlogCreate } from './components/admin/blogs/BlogCreate';
 
 import RequireAuthAdmin from './components/RequireAuthAdmin';
+import { AdminFeedbackPage } from './pages/admin/AdminFeedbackPage';
+
+
 
 export const AdminRoutes = (
   <>
@@ -16,6 +19,7 @@ export const AdminRoutes = (
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminDashboard />} />
         <Route path="users" element={<Users />} />
+        <Route path='feedbacks' element={<AdminFeedbackPage/>}></Route>
         <Route path="blogs"  >
           <Route index element={<BlogList />} />
           <Route path="create" element={<BlogCreate />} />

@@ -8,8 +8,27 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { LogOut, Settings, User } from "lucide-react";
+import { logoutUser } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+
+
+
 
 export function UserDropdown() {
+
+  const dispatch=useDispatch();
+  const handleLogout =async () => {
+        try {
+            await dispatch(logoutUser()).unwrap();
+            dispatch(baseApi.util.resetApiState());
+        } catch (error) {
+            console.error("Logout failed!",error);
+        }
+       
+    }
+
+
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -34,7 +53,7 @@ export function UserDropdown() {
           Settings
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => console.log("Logout")}>
+        <DropdownMenuItem onClick={handleLogout}>
           <LogOut className="mr-2 h-4 w-4" />
           Logout
         </DropdownMenuItem>

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Jar = ({ habits, title }) => {
-    console.log("Jar render");
+   
     const colorClasses = {
   green: "from-green-500 to-white-500",
   red: "from-red-500 to-white-600",

@@ -52,74 +52,77 @@ export const BlogList = () => {
 
     return (
         <>
-        
-        <div className="p-8">
-            <div className="flex justify-between mb-4">
-                <h2 className="text-xl font-semibold ">Blogs</h2>
-                <div className="flex gap-6">
-                    <button className=" rounded-lg bg-blue-400 p-2 text-white"
-                        onClick={() => navigate("/admin/blogs/create")}>
-                        Add Post
-                    </button>
-                    <input
-                        className="rounded-xl p-1 text-center  border-2 border-blue-300  focus:border-blue-500 focus:ring-blue-500 bg-white text-gray-900"
-                        type="text"
-                        placeholder="Search"
-                        maxLength={20}
-                        value={rawSearchTerm}
-                        onChange={handleSearchTermChange}
 
-                    ></input>
+            <div className="p-8">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
+                    <h2 className="text-lg sm:text-xl font-semibold">Blogs</h2>
+
+                    <div className="flex flex-col sm:flex-row sm:items-center w-full sm:w-1/2 gap-2 sm:gap-4">
+                        <button
+                            className="rounded-lg bg-blue-500 px-4 py-2 text-white text-sm sm:text-base"
+                            onClick={() => navigate("/admin/blogs/create")}
+                        >
+                            Add Post
+                        </button>
+
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            maxLength={20}
+                            value={rawSearchTerm}
+                            onChange={handleSearchTermChange}
+                            className="rounded-xl px-3 py-2 text-sm border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200 w-full sm:w-auto"
+                        />
+                    </div>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full  text-sm">
+                        <thead>
+                            <tr className="border-b ">
+                                <th className="p-2">ID</th>
+                                <th className="p-2">Title</th>
+                                <th className="p-2">Short Description</th>
+                                <th className="p-2">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data?.value?.blogPosts.map((post, index) => (
+                                <tr key={post.id} className="border-b hover:bg-gray-50">
+                                    <td className="p-2">{index + 1}</td>
+                                    <td className="p-2">{post.title}</td>
+                                    <td className="p-2">{post.shortDescription}</td>
+                                    <td className="p-2 flex justify-center gap-4">
+                                        <button className="text-blue-600 hover:underline cursor-pointer"
+                                            onClick={() => handleEditClick(post.id)}
+                                        >
+                                            <Pencil size={20} />
+                                        </button>
+                                        <button
+                                            className="text-red-600 hover:underline cursor-pointer"
+                                            onClick={() => handleDelete(post.id)}
+                                        >
+                                            <Trash size={20} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            {error && (
+                                <tr>
+                                    <td colSpan={4} className="p-4 text-center text-gray-500">
+                                        Post bulunamadı!
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div className="overflow-x-auto">
-                <table className="w-full  text-sm">
-                    <thead>
-                        <tr className="border-b ">
-                            <th className="p-2">ID</th>
-                            <th className="p-2">Title</th>
-                            <th className="p-2">Short Description</th>
-                            <th className="p-2">İşlemler</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data?.value?.blogPosts.map((post, index) => (
-                            <tr key={post.id} className="border-b hover:bg-gray-50">
-                                <td className="p-2">{index + 1}</td>
-                                <td className="p-2">{post.title}</td>
-                                <td className="p-2">{post.shortDescription}</td>
-                                <td className="p-2 flex justify-center gap-4">
-                                    <button className="text-blue-600 hover:underline cursor-pointer"
-                                        onClick={() => handleEditClick(post.id)}
-                                    >
-                                        <Pencil size={20} />
-                                    </button>
-                                    <button
-                                        className="text-red-600 hover:underline cursor-pointer"
-                                        onClick={() => handleDelete(post.id)}
-                                    >
-                                        <Trash size={20} />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                        {error && (
-                            <tr>
-                                <td colSpan={4} className="p-4 text-center text-gray-500">
-                                    Post bulunamadı!
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-          <Pagination
+            <Pagination
                 page={page}
                 pageSize={pageSize}
                 totalCount={data?.value?.totalCount ?? 0}
                 onPageChange={(newPage) => setPage(newPage)}
-              />
+            />
         </>
     )
 };
