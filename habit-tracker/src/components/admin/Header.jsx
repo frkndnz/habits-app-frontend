@@ -9,7 +9,7 @@ export const Header = ({ mobileMenuOpen, toggleMobileMenu }) => {
     return (
 
 
-        <header className=" flex items-center justify-between bg-white px-4 py-3 border-b">
+        <header className=" flex items-center justify-between bg-gradient-to-r from-gray-800 to-teal-500   text-white px-4 py-3 border-b">
             {/* Hamburger button (mobile only) */}
             <button
                 onClick={toggleMobileMenu}
@@ -19,7 +19,7 @@ export const Header = ({ mobileMenuOpen, toggleMobileMenu }) => {
                 <Menu size={24} />
             </button>
 
-            <h1 className="text-xl font-semibold">Admin Dashboard</h1>
+            <h1 className="text-xl mx-auto font-semibold">Admin Dashboard</h1>
 
             <UserDropdown />
         </header>

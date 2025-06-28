@@ -57,7 +57,7 @@ export const BlogList = () => {
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
                     <h2 className="text-lg sm:text-xl font-semibold">Blogs</h2>
 
-                    <div className="flex flex-col sm:flex-row sm:items-center w-full sm:w-1/2 gap-2 sm:gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center  w-full sm:w-fit  gap-2 sm:gap-4">
                         <button
                             className="rounded-lg bg-blue-500 px-4 py-2 text-white text-sm sm:text-base"
                             onClick={() => navigate("/admin/blogs/create")}

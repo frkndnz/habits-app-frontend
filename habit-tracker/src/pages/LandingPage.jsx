@@ -13,24 +13,7 @@ import { Testimonials } from "../components/landing/Testimonials";
 import { ScreenShots } from "../components/landing/ScreenShots";
 
 export default function LandingPage() {
-  const appScreens = {
-    dashboard: {
-      title: "Dashboard",
-      description: "Tüm alışkanlıklarınızı tek ekranda görün",
-      features: ["Günlük özet", "Streak takibi", "Hızlı check-in"]
-    },
-    analytics: {
-      title: "Analitik",
-      description: "Detaylı istatistikler ve trend analizleri",
-      features: ["Grafik raporlar", "Aylık özetler", "Karşılaştırmalı analiz"]
-    },
-    habits: {
-      title: "Alışkanlıklar",
-      description: "Alışkanlıklarınızı yönetin ve düzenleyin",
-      features: ["CRUD işlemleri", "Kategori yönetimi", "Öncelik belirleme"]
-    }
-  };
-  const [activeTab, setActiveTab] = useState('dashboard');
+  
   const navigate = useNavigate();
   const featureList = [
     {
@@ -57,7 +40,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="flex flex-col gap-20 py-10 px-4 sm:px-10 bg-gray-900 text-white min-h-screen">
+    <div className="flex flex-col gap-20 py-10 px-4 sm:px-10 bg-gray-900 overflow-hidden text-white min-h-screen">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}

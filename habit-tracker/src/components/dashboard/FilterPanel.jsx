@@ -7,7 +7,7 @@ import { ChevronDown, SlidersHorizontal } from "lucide-react";
 export default function FilterPanel({ filter, onChange }) {
 
     const { data } = useGetCategoriesQuery();
-const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
     const categories = data?.value;
     return (
         <div className="relative mt-2">
@@ -30,8 +30,10 @@ const [open, setOpen] = useState(false);
                         value={filter.status}
                         onValueChange={(val) => onChange({ status: val })}
                     >
-                        <SelectTrigger className="w-[140px] bg-muted ">
-                            Status: {filter.status}
+                        <SelectTrigger className="w-[140px] bg-muted truncate ">
+                            <span className="block max-w-[120px] truncate">
+                                Status: {filter.status}
+                            </span>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem className="capitalize" value="all">All</SelectItem>
@@ -46,8 +48,10 @@ const [open, setOpen] = useState(false);
                         onValueChange={(val) => onChange({ category: val })
                         }
                     >
-                        <SelectTrigger className="w-[140px] bg-muted">
-                            Category: {filter.category}
+                        <SelectTrigger className="w-[140px] bg-muted truncate">
+                            <span className="block max-w-[120px] truncate">
+                                Category: {filter.category}
+                            </span>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">All</SelectItem>

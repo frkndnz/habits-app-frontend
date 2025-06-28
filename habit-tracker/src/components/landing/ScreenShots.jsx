@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { Typewriter } from 'react-simple-typewriter';
 export const ScreenShots = () => {
 
-    const imageSrc = "/images/ss.png";
+    const imageSrc = "/images/mockup.jpg";
     return (
         <section className="w-full py-16 ">
-      <div className="container mx-auto flex flex-col lg:flex-row items-center gap-12 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto flex flex-col lg:flex-col gap-12 items-center  px-4 sm:px-6 lg:px-8">
         {/* Solda: Yazılar */}
         <div className="flex-1 text-center lg:text-left">
             <motion.h2
@@ -21,7 +21,24 @@ export const ScreenShots = () => {
                  See the App in Action
             </motion.h2>
          
-          <p className=" text-base md:text-xl">
+          
+        </div>
+
+        {/* Sağda: Görsel (Motion ile animasyonlu) */}
+        <motion.div
+          initial={{ opacity: 0, x: 100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          
+          className="flex-1  w-full max-w-full lg:max-w-4xl xl:max-w-5xl"
+        >
+          <img
+            src={imageSrc}
+            alt="Sana Habits App Dashboard Mockup"
+            className="w-full h-auto object-contain rounded-xl shadow-xl shadow-gray-400 border-2 border-gray-200"
+          />
+        </motion.div>
+        <p className=" text-base md:text-xl">
             <Typewriter
             words={[
                 "Track your habits.",
@@ -39,22 +56,6 @@ export const ScreenShots = () => {
             />
             
           </p>
-        </div>
-
-        {/* Sağda: Görsel (Motion ile animasyonlu) */}
-        <motion.div
-          initial={{ opacity: 0, x: 100 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          
-          className="flex-1 max-w-xl w-full"
-        >
-          <img
-            src={imageSrc}
-            alt="Sana Habits App Dashboard Mockup"
-            className="w-full h-auto object-contain rounded-xl shadow-2xl border"
-          />
-        </motion.div>
       </div>
     </section>
     );

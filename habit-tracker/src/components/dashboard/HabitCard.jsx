@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pencil, Trash2, CheckCircle } from "lucide-react";
 import { useGetHabitsQuery } from "../../features/habits/habitApi";
 import { useNavigate } from "react-router-dom";
+
 
 
 const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => {
@@ -25,6 +26,8 @@ const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => 
             behavior: 'smooth'
         });
     }
+
+    
     return (
         <div
             className="group relative p-3 sm:p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-white/20 backdrop-blur-sm flex flex-col justify-between  h-full overflow-hidden  cursor-pointer"
@@ -48,7 +51,7 @@ const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => 
                 <h2
                     className="border border-blue-400 rounded-full w-fit px-4 py-1 mx-auto mb-4 text-white  font-semibold text-sm tracking-wide bg-blue-400/10 shadow-sm backdrop-blur-md"
                 >
-                    {habit.categoryName.toUpperCase()}
+                    {habit.categoryName ?habit.categoryName?.toUpperCase() :"uncategorized"  }
                 </h2>
 
                 <div className="flex items-center gap-2">
@@ -160,7 +163,7 @@ const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => 
                     </button>
                 </div>
             </div>
-
+           
             {/* Subtle bottom gradient */}
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-b-2xl"></div>
         </div>

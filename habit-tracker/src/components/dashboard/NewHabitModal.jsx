@@ -54,7 +54,7 @@ const NewHabitModal = React.memo(({ open, onClose, habit, onSave }) => {
         description: habit ? habit.description : "",
         color: habit ? habit.color : colorOptions[0].value, // Default color
         isCompletedToday: habit ? habit.isCompletedToday : false,
-        categoryId: habit ? habit.categoryId : ""
+        categoryId: habit ? habit.categoryId : null
     });
 
     const handleInputChange = (e) => {

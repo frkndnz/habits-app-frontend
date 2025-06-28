@@ -26,7 +26,7 @@ const [isOpen, setIsOpen] = useState(true);
     completedText = `Great! You've completed ${completedCount} habits today`;
   }
   return (
-    < div className={`${isOpen ? "sticky":""} top-0 backdrop-blur-[2px] z-10  rounded-t-xl shadow-sm`} >
+    < div className= {`${isOpen ? "sticky":""} top-0  backdrop-blur-[2px] z-10  rounded-t-xl shadow-sm`} >
 
       <div className="flex justify-end mb-2">
         <button

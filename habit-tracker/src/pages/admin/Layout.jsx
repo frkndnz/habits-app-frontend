@@ -10,26 +10,27 @@ export default function AdminLayout() {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Desktop Sidebar */}
-      <div className="hidden lg:block lg:w-64 bg-gray-800 text-white p-4">
-        <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
-        <nav className="space-y-2">
-          <Link to="/admin" className="block hover:text-gray-300">
-            Dashboard
-          </Link>
-          <Link to="/admin/users" className="block hover:text-gray-300">
-            Users
-          </Link>
-          <Link to="/admin/blogs" className="block hover:text-gray-300">
-            Blogs
-          </Link>
-          <Link to="/admin/feedbacks" className="block hover:text-gray-300">
-            Feedbacks
-          </Link>
-          <Link to="/" className="block hover:text-gray-300">
-            Home
-          </Link>
-        </nav>
-      </div>
+      <div class="hidden lg:block lg:w-64 bg-gray-800 text-white p-6 rounded-xs shadow-xl">
+  <h2 class="text-2xl font-extrabold mb-8 text-center tracking-wide">Admin Panel</h2>
+  <nav class="space-y-3">
+    <Link to="/admin" class="block py-2 px-4 rounded-md text-lg font-medium hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
+      Dashboard
+    </Link>
+    <Link to="/admin/users" class="block py-2 px-4 rounded-md text-lg font-medium hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
+      Users
+    </Link>
+    <Link to="/admin/blogs" class="block py-2 px-4 rounded-md text-lg font-medium hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
+      Blogs
+    </Link>
+    <Link to="/admin/feedbacks" class="block py-2 px-4 rounded-md text-lg font-medium hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
+      Feedbacks
+    </Link>
+    <div class="border-t border-gray-700 my-4"></div>
+    <Link to="/" class="block py-2 px-4 rounded-md text-lg font-medium hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
+      Home
+    </Link>
+  </nav>
+</div>
 
       {/* Content area */}
       <div className=" flex flex-col flex-1 overflow-hidden">

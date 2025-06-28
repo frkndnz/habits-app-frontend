@@ -11,39 +11,40 @@ const testimonials = [
     {
         id: 1,
         name: 'Ayşe Yılmaz',
-        title: 'Ürünü Çok Sevdim!',
-        quote: 'Sana Habits sayesinde sonunda su içme alışkanlığımı kazandım. Uygulamanın arayüzü çok sezgisel ve istatistikler inanılmaz motive edici!',
-        avatar: 'https://randomuser.me/api/portraits/women/44.jpg' // Sahte avatar
+        title: 'I Loved the Product!',
+        quote: 'Thanks to Sana Habits, I finally developed the habit of drinking water regularly. The app’s interface is very intuitive and the statistics are incredibly motivating!',
+        avatar: 'https://randomuser.me/api/portraits/women/44.jpg'
     },
     {
         id: 2,
         name: 'Can Demir',
-        title: 'Hedeflerime Ulaşmak Artık Daha Kolay',
-        quote: 'Detaylı istatistikler ve görsel ilerleme takibi sayesinde hedeflerime ulaşmak artık çok daha kolay. Gerçekten hayatımı değiştirdi!',
+        title: 'Reaching My Goals is Now Easier',
+        quote: 'With detailed statistics and visual progress tracking, reaching my goals has become much easier. It truly changed my life!',
         avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
     },
     {
         id: 3,
         name: 'Elif Kaya',
-        title: 'Motivasyon Kaynağım',
-        quote: 'Alışkanlık serilerimi korumak ve rozetler kazanmak beni inanılmaz motive ediyor. Teşekkürler Sana Habits!',
+        title: 'My Source of Motivation',
+        quote: 'Keeping my habit streaks and earning badges keeps me incredibly motivated. Thank you Sana Habits!',
         avatar: 'https://randomuser.me/api/portraits/women/67.jpg'
     },
     {
         id: 4,
         name: 'Burak Tunç',
-        title: 'Basit ve Etkili',
-        quote: 'Piyasada denediğim en basit ve etkili alışkanlık takip uygulaması. Karmaşık değil, sadece işini yapıyor.',
+        title: 'Simple and Effective',
+        quote: 'The simplest and most effective habit tracking app I’ve ever tried. Not complicated, just does the job.',
         avatar: 'https://randomuser.me/api/portraits/men/78.jpg'
     },
     {
         id: 5,
         name: 'Zeynep Akın',
-        title: 'Harika Arayüz',
-        quote: 'Uygulamanın tasarımı o kadar güzel ki, alışkanlıklarımı takip etmek bir zevk haline geldi. Kesinlikle tavsiye ederim!',
+        title: 'Beautiful Interface',
+        quote: 'The design of the app is so beautiful that tracking my habits has become a pleasure. I definitely recommend it!',
         avatar: 'https://randomuser.me/api/portraits/women/21.jpg'
     }
 ];
+
 export const Testimonials = () => {
     return (
         <motion.section
@@ -96,7 +97,7 @@ export const Testimonials = () => {
                         <SwiperSlide key={testimonial.id}>
                             <div className="bg-gray-800 p-8  rounded-xl shadow-lg border border-gray-700 flex flex-col h-full">
                                 {/* Yorum Metni */}
-                                <p className="text-gray-300 text-lg mb-6 flex-grow italic">"{testimonial.quote}"</p>
+                                <p className="text-gray-300 text-lg mb-6 flex-grow italic break-words">"{testimonial.quote}"</p>
 
                                 {/* Kullanıcı Bilgileri */}
                                 <div className="flex items-center mt-4">

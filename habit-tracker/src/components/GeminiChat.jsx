@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSendPromtGeminiMutation } from '../features/ai/aiApi';
-
+import { MessageCircle } from 'lucide-react';
 
 
 
@@ -23,7 +23,7 @@ const GeminiChat = () => {
         if (isOpen && messages.length === 0) {
             setMessages([
                 {
-                    text: "Merhaba! Alışkanlıklar ve kişisel gelişim hakkında size nasıl yardımcı olabilirim?",
+                    text: "Hello! How can I help you with habits and personal development?",
                     sender: "bot",
                 },
             ]);
@@ -42,15 +42,15 @@ const GeminiChat = () => {
 
         try {
             const response = await sendPrompt({prompt:input}).unwrap();
-            const geminiResponse = response?.value?.content || "Boş cevap geldi.";
+            const geminiResponse = response?.value?.content || "An empty answer came.";
 
             setMessages((prev) => [...prev, { text: geminiResponse, sender: 'bot' }]);
         } catch (err) {
-            const errorMsg = err?.message || "Bilinmeyen bir hata oluştu.";
+            const errorMsg = err?.message || "An error occurred";
             setError(errorMsg);
             setMessages((prev) => [
                 ...prev,
-                { text: "Bir hata oluştu, lütfen daha sonra tekrar deneyin.", sender: 'bot', isError: true },
+                { text: "An error occurred, please try again later.", sender: 'bot', isError: true },
             ]);
         } finally {
             setLoading(false);
@@ -65,7 +65,7 @@ const GeminiChat = () => {
                     className="fixed bottom-24 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 z-50"
                     aria-label="Sohbeti Aç"
                 >
-                    💬
+                    <MessageCircle/>
                 </button>
             )}
 
@@ -73,7 +73,7 @@ const GeminiChat = () => {
                 <div className="fixed bottom-6 right-6 w-80 h-[500px] bg-white rounded-lg shadow-xl flex flex-col z-50 border border-gray-200">
                     {/* Header */}
                     <header className="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
-                        <h2 className="text-lg font-semibold">AI Alışkanlık Asistanı</h2>
+                        <h2 className="text-lg font-semibold font-montserrat">AI Habit Assistant</h2>
                         <button onClick={() => setIsOpen(false)} aria-label="Kapat">✖</button>
                     </header>
 
@@ -91,7 +91,7 @@ const GeminiChat = () => {
                         {loading && (
                             <div className="flex justify-start">
                                 <div className="max-w-[75%] p-3 rounded-lg bg-gray-200 text-gray-800 animate-pulse">
-                                    Yazıyor...
+                                    Writes...
                                 </div>
                             </div>
                         )}
@@ -110,7 +110,7 @@ const GeminiChat = () => {
                         <textarea
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            placeholder="Mesaj yazın..."
+                            placeholder="Write a message..."
                             className="flex-1 p-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-blue-500 text-sm"
                             rows={1}
                             onKeyDown={(e) => {
@@ -129,7 +129,7 @@ const GeminiChat = () => {
                             disabled={loading || !input.trim()}
                             className="bg-blue-600 text-white px-4 py-2 rounded disabled:bg-blue-300"
                         >
-                            Gönder
+                           Send
                         </button>
                     </form>
                 </div>
