@@ -9,7 +9,7 @@ import { BlogCreate } from './components/admin/blogs/BlogCreate';
 
 import RequireAuthAdmin from './components/RequireAuthAdmin';
 import { AdminFeedbackPage } from './pages/admin/AdminFeedbackPage';
-
+import Logs from './pages/admin/Logs';
 
 
 export const AdminRoutes = (
@@ -25,6 +25,9 @@ export const AdminRoutes = (
           <Route path="create" element={<BlogCreate />} />
           <Route path="edit/:id" element={<BlogCreate />} />
 
+        </Route>
+        <Route path='logs'>
+          <Route index element={<Logs/>}></Route>
         </Route>
       </Route>
     </Route>

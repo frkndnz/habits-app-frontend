@@ -25,6 +25,9 @@ export default function AdminLayout() {
     <Link to="/admin/feedbacks" class="block py-2 px-4 rounded-md text-lg font-medium hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
       Feedbacks
     </Link>
+    <Link to="/admin/logs" class="block py-2 px-4 rounded-md text-lg font-medium hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
+      Logs
+    </Link>
     <div class="border-t border-gray-700 my-4"></div>
     <Link to="/" class="block py-2 px-4 rounded-md text-lg font-medium hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
       Home
