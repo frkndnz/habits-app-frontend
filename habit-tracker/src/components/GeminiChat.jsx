@@ -70,7 +70,7 @@ const GeminiChat = () => {
             )}
 
             {isOpen && (
-                <div className="fixed bottom-6 right-6 w-80 h-[500px] bg-white rounded-lg shadow-xl flex flex-col z-50 border border-gray-200">
+                <div className="fixed bottom-6 right-6 w-60 sm:w-80 h-[350px] sm:h-[500px] bg-white rounded-lg shadow-xl flex flex-col z-50 border border-gray-200">
                     {/* Header */}
                     <header className="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
                         <h2 className="text-lg font-semibold font-montserrat">AI Habit Assistant</h2>

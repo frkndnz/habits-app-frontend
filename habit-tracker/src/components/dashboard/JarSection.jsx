@@ -28,19 +28,11 @@ const [isOpen, setIsOpen] = useState(true);
   return (
     < div className= {`${isOpen ? "sticky":""} top-0  backdrop-blur-[2px] z-10  rounded-t-xl shadow-sm`} >
 
-      <div className="flex justify-end mb-2">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-sm text-white-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition"
-        >
-          {isOpen ? <ChevronUp size={40} /> : <ChevronDown size={40} />}
-        </button>
-      </div>
 
       {isOpen && (
         <>
       
-      <div className="grid grid-cols-2 ">
+      <div className="grid grid-cols-2 mt-2 ">
         <Jar
           title="Incomplete"
           habits={incompleteHabits}
@@ -62,6 +54,14 @@ const [isOpen, setIsOpen] = useState(true);
 </h2>
         </>
       )}
+      <div className="flex justify-center mb-2">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="text-sm text-white-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition"
+        >
+          {isOpen ? <ChevronUp size={40} /> : <ChevronDown size={40} />}
+        </button>
+      </div>
     </div>
     
   );

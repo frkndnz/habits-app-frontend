@@ -30,7 +30,7 @@ const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => 
     
     return (
         <div
-            className="group relative p-3 sm:p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-white/20 backdrop-blur-sm flex flex-col justify-between  h-full overflow-hidden  cursor-pointer"
+            className=" group relative p-3 sm:p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-white/20 backdrop-blur-sm flex flex-col justify-between  h-full overflow-hidden  cursor-pointer"
             onClick={handleCardClick}
             style={{
                 background: `linear-gradient(135deg, ${habit.color}95, ${habit.color}CC)`,
@@ -49,7 +49,7 @@ const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => 
                     {habit.name.toUpperCase()}
                 </h3>
                 <h2
-                    className="border border-blue-400 rounded-full w-fit px-4 py-1 mx-auto mb-4 text-white  font-semibold text-sm tracking-wide bg-blue-400/10 shadow-sm backdrop-blur-md"
+                    className="border border-blue-400 rounded-full w-fit px-4 py-1 mx-auto mb-4 text-white  font-semibold text-xs sm:text-sm tracking-wide bg-blue-400/10 shadow-sm backdrop-blur-md"
                 >
                     {habit.categoryName ?habit.categoryName?.toUpperCase() :"uncategorized"  }
                 </h2>
@@ -58,18 +58,18 @@ const HabitCard = React.memo(({ habitId, onEdit, onDelete, onMarkComplete }) => 
                     {habit.isCompletedToday ? (
                         <div className="flex items-center gap-2 text-white/90">
                             <div className="w-2 h-2 bg-white rounded-full"></div>
-                            <span className="text-sm font-medium">Completed</span>
+                            <span className="text-xs sm:text-sm font-medium">Completed</span>
                         </div>
                     ) : (
                         <div className="flex items-center gap-2 text-white/80">
                             <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse"></div>
-                            <span className="text-sm">Not yet completed</span>
+                            <span className="text-xs sm:text-sm">Not yet completed</span>
                         </div>
                     )}
                 </div>
                 <div className="mt-4">
                     {/* Başlık */}
-                    <p className="text-gray-300 text-sm mb-2">This week</p>
+                    <p className="text-gray-300 text-xs sm:text-sm mb-2">This week</p>
 
                     {/* Gün isimleri */}
                     <div className="grid grid-cols-7 gap-2 text-center text-xs text-gray-300 mb-1">

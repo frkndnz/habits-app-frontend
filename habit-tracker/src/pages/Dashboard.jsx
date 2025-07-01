@@ -47,7 +47,7 @@ const Dashboard = () => {
                         </TabsContent>
                         <TabsContent value="stats">
                             <SummaryStats />
-                            <div className="w-full px-10  mx-auto grid grid-cols-1 sm:grid-cols-2 items-stretch  gap-4 mt-6  ">
+                            <div className="w-full sm:px-2 lg:px-10  mx-auto grid grid-cols-1 sm:grid-cols-2 items-stretch  gap-4 mt-6  ">
                             <CompletionPieChart/>
                             <CategorySuccessChart/>
                             </div>

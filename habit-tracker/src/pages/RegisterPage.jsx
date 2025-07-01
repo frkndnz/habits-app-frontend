@@ -49,6 +49,7 @@ const InputComponent = ({ name, label, type, value, onChange, errorMap = {}, sho
 const RegisterPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const { isLoading, errorMessages, message } = useSelector((state) => state.auth);
     const [showPassword, setShowPassword] = useState(false);
     const [errorMap, setErrorMap] = useState(parseFieldErrors(errorMessages));
@@ -104,7 +105,12 @@ const RegisterPage = () => {
                 <h2 className="text-xl sm:text-2xl   font-bold text-center text-gray-800 dark:text-white mb-3">
                     Register
                 </h2>
-
+                 {errorMessages &&
+                        errorMessages.filter(msg=>!msg.includes(":")).map((msg, index) => (
+                            <p key={index} className="text-red-500 text-sm mb-3">
+                                {msg}
+                            </p>
+                        ))}
                 <InputComponent
                     name="userName"
                     label="User name"

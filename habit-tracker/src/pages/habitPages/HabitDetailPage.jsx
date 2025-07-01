@@ -34,7 +34,7 @@ export const HabitDetailPage = () => {
 
 
     return (
-        <div className="container mx-auto p-8 max-w-4xl bg-white rounded-lg shadow-md">
+        <div className="container mx-auto p-4 max-w-4xl bg-white rounded-lg shadow-md">
             {/* Geri Butonu */}
             <div className="mb-6 flex justify-start border-b border-gray-300 pb-4">
                 <Button

@@ -129,7 +129,7 @@ const HabitList = () => {
                     onChange={(updated) => setFilter((prev) => ({ ...prev, ...updated }))}
                 />
             )}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-16  rounded-b-xl   ">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 sm:p-16  rounded-b-xl   ">
 
                 {data?.value && filteredHabits.map((habit) => {
                     return (

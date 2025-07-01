@@ -49,11 +49,11 @@ const CategorySuccessChart = () => {
 
 
   return (
-    <div className="flex flex-col items-center justify-center bg-chart-3 p-6 rounded-2xl shadow-md w-full  mx-auto mt-6 h-[400px] ">
-      <h2 className="text-xl font-bold text-white mb-4">
+    <div className="flex flex-col items-center justify-center bg-chart-3 p-4 rounded-2xl shadow-md mx-auto mt-6 w-full max-w-sm sm:max-w-md h-[250px] sm:h-[400px] ">
+      <h2 className="text-sm sm:text-lg lg:text-xl font-bold text-white mb-4">
        Success Rate and Number of Habits by Category
       </h2>
-      <div style={{ width: '100%', height: 250 }}>
+      
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={data?.value}
@@ -104,7 +104,7 @@ const CategorySuccessChart = () => {
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    
   );
 };
 

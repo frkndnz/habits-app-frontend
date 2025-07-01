@@ -13,38 +13,42 @@ export const CompletionPieChart = () => {
 
     const habits = data?.value;
 
-   
 
 
-    const completedCount =habits ? habits?.filter(h => h.isCompletedToday).length :0;
-    const incompletedCount = habits ? habits?.length - completedCount:0;
+
+    const completedCount = habits ? habits?.filter(h => h.isCompletedToday).length : 0;
+    const incompletedCount = habits ? habits?.length - completedCount : 0;
     const chartData = [
         { name: 'Completed', value: completedCount },
         { name: 'InCompleted', value: incompletedCount }
     ];
 
     return (
-        <div className="flex flex-col items-center justify-center bg-chart-3 p-6 rounded-2xl shadow-md w-full  mx-auto mt-6  h-[400px] ">
-            <h2 className="text-xl font-bold text-white mb-4 ">Daily completion rate</h2>
-                <PieChart width={250} height={250} className="px-4 ">
-                    <Pie
-                        data={chartData}
-                        cx='50%'
-                        cy='50%'
-                        innerRadius={60}
-                        outerRadius={90}
-                        paddingAngle={5}
-                        dataKey='value'
-                        label
-                        labelPosition="outside"
-                    >
-                        {chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index]}></Cell>
-                        ))}
-                    </Pie>
-                    <Legend />
-                </PieChart>
-            
-        </div>
+        <div className="flex flex-col items-center justify-center bg-chart-3 p-4 rounded-2xl shadow-md mx-auto mt-6 w-full max-w-sm sm:max-w-md h-[250px] sm:h-[400px]">
+    <h2 className="text-sm sm:text-lg lg:text-xl font-bold text-white mb-2 sm:mb-4">Daily completion rate</h2>
+    <ResponsiveContainer width="100%" height="100%">
+        <PieChart margin={{ top: 5, right: 30, left: 30, bottom: 5 }}>
+            <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                 innerRadius="35%"
+                outerRadius="60%"
+                paddingAngle={3}
+                dataKey="value"
+                label={({percent}) => `${(percent * 100).toFixed(0)}%`}
+                labelLine={false}
+            >
+                {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                ))}
+            </Pie>
+            <Legend 
+                wrapperStyle={{fontSize: '16px'}}
+                iconSize={8}
+            />
+        </PieChart>
+    </ResponsiveContainer>
+</div>
     );
 }

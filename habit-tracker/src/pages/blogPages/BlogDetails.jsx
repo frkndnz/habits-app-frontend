@@ -10,8 +10,8 @@ const BlogDetails = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
-  const{data,error,isLoading}=useGetBlogPostByIdQuery(id);
-  
+  const { data, error, isLoading } = useGetBlogPostByIdQuery(id);
+
 
   const blogPost = data?.value;
 
@@ -32,26 +32,28 @@ const BlogDetails = () => {
 
         <div className="text-sm text-gray-500 flex gap-4">
           <span>✍️ {blogPost.creatorName || "No Author Information"}</span>
-          <span>📅 {new Date(blogPost.createdAt).toLocaleDateString( {
+          <span>📅 {new Date(blogPost.createdAt).toLocaleDateString({
             year: "numeric",
             month: "long",
             day: "numeric",
           })}</span>
         </div>
-          <div className="h-100">
 
-        {blogPost.imageUrl && (
-          <img
-          src={blogPost.imageUrl}
-          alt={blogPost.title}
-          className="w-full h-full object-fill rounded-lg shadow"
-          />
-        )}
+        <div className="w-full  h-[180px] sm:h-auto  flex-shrink-0 p-2">
+
+          {blogPost.imageUrl && (
+
+            <img
+              src={blogPost.imageUrl}
+              alt={blogPost.title}
+              className="w-full h-full object-fill rounded-lg shadow"
+            />
+          )}
         </div>
 
-        
-          <ReactMarkdown className="text-left prose prose-blue max-w-none">{blogPost.content}</ReactMarkdown>
-        
+
+        <ReactMarkdown className="text-left prose prose-blue max-w-none">{blogPost.content}</ReactMarkdown>
+
       </Card>
     </div>
   );

@@ -81,6 +81,13 @@ export default function AdminLayout() {
                 Feedbacks
               </Link>
               <Link
+                to="/admin/logs"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-teal-600"
+              >
+                Logs
+              </Link>
+              <Link
                 to="/"
                 onClick={() => setMobileMenuOpen(false)}
                 className="hover:text-teal-600"

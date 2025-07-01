@@ -113,6 +113,7 @@ const authSlice = createSlice({
             .addCase(registerUser.rejected, (state,action) => {
                 state.isLoading = false;
                 state.errorMessages = action.payload.errorMessages || ["Bir hata oluştu"];
+                
             })
             .addCase(logoutUser.fulfilled,(state)=>{
                 state.user = null;
